@@ -15,6 +15,7 @@
 #include "fsm_normal_state.h"
 #include "scheduler.h"
 #include "fsm_pedestrian.h"
+#include "buzzer.h"
 
 #define INIT 0
 
@@ -38,5 +39,6 @@ extern int timeGreen;
 extern int status;
 extern int time1,time2;
 extern int pedestrian_flag;
-
+extern TIM_HandleTypeDef htim3;
+extern int buzzerValue;
 #endif /* INC_GLOBAL_H_ */

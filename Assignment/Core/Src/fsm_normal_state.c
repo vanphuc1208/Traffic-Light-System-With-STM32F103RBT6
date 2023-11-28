@@ -151,6 +151,10 @@ void normalState(void) {
 			time2--;
 		}
 
+		if(time1<=3) {
+			buzzerValue=512*(4-time1);
+		}
+
 		if(is_button_pressed(1)) {
 			status=ManRed;
 			time1=timeRed;

@@ -26,7 +26,8 @@ Core/Src/fsm_normal_state.o: ../Core/Src/fsm_normal_state.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Core/Inc/button.h ../Core/Inc/software_timer.h ../Core/Inc/global.h \
  ../Core/Inc/displayLed.h ../Core/Inc/fsm_normal_state.h \
- ../Core/Inc/scheduler.h ../Core/Inc/fsm_pedestrian.h
+ ../Core/Inc/scheduler.h ../Core/Inc/fsm_pedestrian.h \
+ ../Core/Inc/buzzer.h
 
 ../Core/Inc/global.h:
 
@@ -93,3 +94,5 @@ Core/Src/fsm_normal_state.o: ../Core/Src/fsm_normal_state.c \
 ../Core/Inc/scheduler.h:
 
 ../Core/Inc/fsm_pedestrian.h:
+
+../Core/Inc/buzzer.h:
