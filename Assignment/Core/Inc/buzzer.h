@@ -11,5 +11,4 @@
 
 void buzzer();
 
-
 #endif /* INC_BUZZER_H_ */

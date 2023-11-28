@@ -19,11 +19,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "global.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "global.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,7 +58,8 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
 	timerRun();
 	SCH_Update();
 	button_reading();
@@ -104,8 +104,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-//  uint8_t value=0;
- 	 //htim3.Instance->CCR1=2048;
+// uint8_t value=0;
+// htim3.Instance->CCR1=2048;
+
 // SCH_Add_Task(timerRun, 0, 1);
  SCH_Add_Task(normalState, 1, 1);
  SCH_Add_Task(fsm_pedestrian, 1, 1);

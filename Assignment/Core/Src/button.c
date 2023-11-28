@@ -28,32 +28,39 @@ static GPIO_PinState debounceButtonBuffer3[N0_OF_BUTTONS];
 //we define counter for automatically increasing the value
 //after the button is pressed more than 1 second.
 int buttonFlag[N0_OF_BUTTONS] = {0};
-void button_reading(void){
-	for(int i = 0; i < N0_OF_BUTTONS; i ++){
+void button_reading(void)
+{
+	for(int i = 0; i < N0_OF_BUTTONS; i ++)
+	{
 		debounceButtonBuffer3[i] =debounceButtonBuffer2[i];
 		debounceButtonBuffer2[i] =debounceButtonBuffer1[i];
 		debounceButtonBuffer1[i] = HAL_GPIO_ReadPin(buttonGPIO[i], buttonPin[i]);
-		if(debounceButtonBuffer1[i] == debounceButtonBuffer2[i] && debounceButtonBuffer2[i] == debounceButtonBuffer3[i]) {
-			if(debounceButtonBuffer1[i] != buttonBuffer[i]){
+		if(debounceButtonBuffer1[i] == debounceButtonBuffer2[i] && debounceButtonBuffer2[i] == debounceButtonBuffer3[i])
+		{
+			if(debounceButtonBuffer1[i] != buttonBuffer[i])
+			{
 				buttonBuffer[i] = debounceButtonBuffer1[i];
-						if(buttonBuffer[i] == BUTTON_IS_PRESSED){
+						if(buttonBuffer[i] == BUTTON_IS_PRESSED)
+						{
 							buttonFlag[i] = 1;
 							buttonTimeOut[i] = DURATION_FOR_AUTO_INCREASING;
-							}
-		}
-		else {
-			buttonTimeOut[i]--;
-				if(buttonTimeOut[i] <= 0){
-					buttonBuffer[i] = BUTTON_IS_RELEASED;
+						}
 			}
+		}
+		else
+		{
+			buttonTimeOut[i]--;
+				if(buttonTimeOut[i] <= 0)
+					buttonBuffer[i] = BUTTON_IS_RELEASED;
 		}
 	}
 }
-}
 
-int is_button_pressed(int index){
+int is_button_pressed(int index)
+{
 	if(index >= N0_OF_BUTTONS || index < 0) return 0;
-		if(buttonFlag[index] == 1){
+		if(buttonFlag[index] == 1)
+		{
 			buttonFlag[index] = 0;
 			return 1;
 		}

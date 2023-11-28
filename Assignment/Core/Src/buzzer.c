@@ -7,6 +7,7 @@
 
 #include "buzzer.h"
 
-void buzzer() {
+void buzzer()
+{
 	 htim3.Instance->CCR1=buzzerValue;
 }

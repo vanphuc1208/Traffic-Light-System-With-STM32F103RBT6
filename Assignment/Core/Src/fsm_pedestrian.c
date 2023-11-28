@@ -7,11 +7,12 @@
 
 #include "global.h"
 
-void fsm_pedestrian(void){
+void fsm_pedestrian(void)
+{
 	switch(pedestrian_flag)
 	{
 		case Pedestrian_INIT:
-			buzzerValue=0;
+			buzzerValue = 0;
 			clearPedestrian();
 			buzzer();
 			break;
@@ -21,7 +22,7 @@ void fsm_pedestrian(void){
 				pedestrian_flag = Pedestrian_INIT;
 			}
 			displayPedestrianRed();
-			buzzerValue=0;
+			buzzerValue = 0;
 			buzzer();
 			break;
 		case Pedestrian_GREEN:
