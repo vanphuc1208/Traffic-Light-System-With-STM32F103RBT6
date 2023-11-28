@@ -5,7 +5,11 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+<<<<<<< HEAD
 ../Core/Src/displayLed.c \
+=======
+../Core/Src/button.c \
+>>>>>>> button
 ../Core/Src/fsm.c \
 ../Core/Src/main.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
@@ -15,7 +19,11 @@ C_SRCS += \
 ../Core/Src/system_stm32f1xx.c 
 
 OBJS += \
+<<<<<<< HEAD
 ./Core/Src/displayLed.o \
+=======
+./Core/Src/button.o \
+>>>>>>> button
 ./Core/Src/fsm.o \
 ./Core/Src/main.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
@@ -25,7 +33,11 @@ OBJS += \
 ./Core/Src/system_stm32f1xx.o 
 
 C_DEPS += \
+<<<<<<< HEAD
 ./Core/Src/displayLed.d \
+=======
+./Core/Src/button.d \
+>>>>>>> button
 ./Core/Src/fsm.d \
 ./Core/Src/main.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
