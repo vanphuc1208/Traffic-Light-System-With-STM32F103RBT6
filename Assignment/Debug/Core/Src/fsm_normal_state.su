@@ -1,0 +1,2 @@
+fsm_normal_state.c:10:6:increase	4	static
+fsm_normal_state.c:17:6:normalState	8	static
