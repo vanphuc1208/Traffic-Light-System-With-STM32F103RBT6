@@ -14,6 +14,46 @@ void increase()
 		time1 = 1;
 }
 
+void balance(int RED, int AMBER, int GREEN)
+{
+	if(RED > timeRed)
+	{
+		timeYellow = timeYellow * (RED / timeRed);
+		timeGreen = timeGreen * (RED / timeRed);
+		timeRed = RED;
+	}
+	else if(AMBER > timeYellow)
+	{
+		timeRed = timeRed * (AMBER / timeYellow);
+		timeGreen = timeGreen * (AMBER / timeYellow);
+		timeYellow = AMBER;
+	}
+	else if(GREEN > timeGreen)
+	{
+		timeRed = timeRed * (GREEN / timeGreen);
+		timeYellow = AMBER * (GREEN / timeGreen);
+		timeGreen = GREEN;
+	}
+	else if(RED < timeRed)
+	{
+		timeYellow = (RED / 5) * 2;
+		timeGreen = (RED / 5) * 3;
+		timeRed = RED;
+	}
+	else if(AMBER < timeYellow)
+	{
+		timeRed = (AMBER / 2) * 5;
+		timeGreen = (AMBER / 2) * 3;
+		timeYellow = AMBER;
+	}
+	else if(GREEN < timeGreen)
+	{
+		timeRed = (GREEN / 3) * 5;
+		timeYellow = (GREEN / 3) * 2;
+		timeGreen = GREEN;
+	}
+}
+
 void normalState(void) {
 	switch(status) {
 	case INIT:
@@ -50,6 +90,11 @@ void normalState(void) {
 			clearAllLed2();
 			setTimer(2, 25);
 		}
+		if(is_button_pressed(0))
+		{
+			pedestrian_flag = Pedestrian_RED;
+			setTimer(3, (timeRed + timeGreen) * 100);
+		}
 
 		break;
 	case RedAm:
@@ -61,6 +106,10 @@ void normalState(void) {
 			setTimer(1, 100);
 			time1=timeGreen;
 			time2=timeRed;
+			if(pedestrian_flag == Pedestrian_RED)
+			{
+				pedestrian_flag = Pedestrian_GREEN;
+			}
 		}
 
 		if(IsTimerUp(0)==1) { //update time
@@ -76,6 +125,12 @@ void normalState(void) {
 			clearAllLed1();
 			clearAllLed2();
 			setTimer(2, 25);
+		}
+
+		if(is_button_pressed(0))
+		{
+			pedestrian_flag = Pedestrian_RED;
+			setTimer(3, (timeRed + timeGreen) * 100);
 		}
 
 		break;
@@ -104,6 +159,13 @@ void normalState(void) {
 			clearAllLed2();
 			setTimer(2, 25);
 		}
+
+		if(is_button_pressed(0))
+		{
+			pedestrian_flag = Pedestrian_GREEN;
+			setTimer(3, (timeRed + timeGreen) * 100);
+		}
+
 		break;
 	case AmRed:
 		displayYellow1();
@@ -114,6 +176,10 @@ void normalState(void) {
 			setTimer(1, 100);
 			time1=timeRed;
 			time2=timeGreen;
+			if(pedestrian_flag == Pedestrian_GREEN)
+			{
+				pedestrian_flag = Pedestrian_RED;
+			}
 		}
 
 		if(IsTimerUp(1)==1) {//update time
@@ -130,6 +196,13 @@ void normalState(void) {
 			clearAllLed2();
 			setTimer(2, 25);
 		}
+
+		if(is_button_pressed(0))
+		{
+			pedestrian_flag = Pedestrian_GREEN;
+			setTimer(3, (timeRed + timeGreen) * 100);
+		}
+
 		break;
 	case ManRed:
 		if(IsTimerUp(2)==1) {
@@ -140,9 +213,7 @@ void normalState(void) {
 			increase();
 		}
 		if(is_button_pressed(3)) {
-			timeRed=time1;
-			timeGreen=timeRed-timeYellow;
-
+			balance(time1, timeYellow, timeGreen);
 		}
 		if(is_button_pressed(1)) {
 			status=ManAm;
@@ -162,11 +233,7 @@ void normalState(void) {
 			increase();
 		}
 		if(is_button_pressed(3)) {
-			timeYellow=time1;
-			if(timeYellow >=timeRed) {
-				timeRed=60;
-			}
-			timeGreen=timeRed-timeYellow;
+			balance(timeRed, time1, timeGreen);
 		}
 		if(is_button_pressed(1)) {
 			status=ManGreen;
@@ -186,11 +253,7 @@ void normalState(void) {
 			increase();
 		}
 		if(is_button_pressed(3)) {
-			timeGreen=time1;
-			if(timeGreen >=timeRed) {
-				timeRed=60;
-			}
-			timeYellow=timeRed-timeGreen;
+			balance(timeRed, timeYellow, time1);
 		}
 		if(is_button_pressed(1)) {
 			status=RedGreen;
@@ -204,4 +267,6 @@ void normalState(void) {
 		break;
 	}
 }
+
+
 

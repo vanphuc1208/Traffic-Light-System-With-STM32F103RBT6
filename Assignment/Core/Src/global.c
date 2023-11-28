@@ -12,5 +12,4 @@ int timeYellow=2;
 int timeGreen=3;
 int status=INIT;
 int time1=0, time2=0;
-
-
+int pedestrian_flag = Pedestrian_INIT;

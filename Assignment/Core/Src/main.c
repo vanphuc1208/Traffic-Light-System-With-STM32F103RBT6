@@ -108,6 +108,7 @@ int main(void)
  	 //htim3.Instance->CCR1=2048;
 // SCH_Add_Task(timerRun, 0, 1);
  SCH_Add_Task(normalState, 1, 1);
+ SCH_Add_Task(fsm_pedestrian, 1, 1);
   while (1)
   {
     /* USER CODE END WHILE */

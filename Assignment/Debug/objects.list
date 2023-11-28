@@ -1,6 +1,7 @@
 "./Core/Src/button.o"
 "./Core/Src/displayLed.o"
 "./Core/Src/fsm_normal_state.o"
+"./Core/Src/fsm_pedestrian.o"
 "./Core/Src/global.o"
 "./Core/Src/main.o"
 "./Core/Src/scheduler.o"

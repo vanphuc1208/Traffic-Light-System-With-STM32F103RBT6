@@ -26,7 +26,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/global.h ../Core/Inc/main.h ../Core/Inc/button.h \
  ../Core/Inc/software_timer.h ../Core/Inc/global.h \
  ../Core/Inc/displayLed.h ../Core/Inc/fsm_normal_state.h \
- ../Core/Inc/scheduler.h
+ ../Core/Inc/scheduler.h ../Core/Inc/fsm_pedestrian.h
 
 ../Core/Inc/main.h:
 
@@ -93,3 +93,5 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/fsm_normal_state.h:
 
 ../Core/Inc/scheduler.h:
+
+../Core/Inc/fsm_pedestrian.h:

@@ -8,6 +8,7 @@ C_SRCS += \
 ../Core/Src/button.c \
 ../Core/Src/displayLed.c \
 ../Core/Src/fsm_normal_state.c \
+../Core/Src/fsm_pedestrian.c \
 ../Core/Src/global.c \
 ../Core/Src/main.c \
 ../Core/Src/scheduler.c \
@@ -22,6 +23,7 @@ OBJS += \
 ./Core/Src/button.o \
 ./Core/Src/displayLed.o \
 ./Core/Src/fsm_normal_state.o \
+./Core/Src/fsm_pedestrian.o \
 ./Core/Src/global.o \
 ./Core/Src/main.o \
 ./Core/Src/scheduler.o \
@@ -36,6 +38,7 @@ C_DEPS += \
 ./Core/Src/button.d \
 ./Core/Src/displayLed.d \
 ./Core/Src/fsm_normal_state.d \
+./Core/Src/fsm_pedestrian.d \
 ./Core/Src/global.d \
 ./Core/Src/main.d \
 ./Core/Src/scheduler.d \

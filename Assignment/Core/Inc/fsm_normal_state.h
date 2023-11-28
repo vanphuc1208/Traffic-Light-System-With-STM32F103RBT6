@@ -9,5 +9,6 @@
 #define INC_FSM_NORMAL_STATE_H_
 
 void normalState(void);
+void balance(int RED, int AMBER, int GREEN);
 
 #endif /* INC_FSM_NORMAL_STATE_H_ */
