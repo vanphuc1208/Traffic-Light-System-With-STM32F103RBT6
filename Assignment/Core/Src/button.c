@@ -17,6 +17,7 @@
 //the buffer that the final result is stored after
 //debouncing
 static GPIO_PinState buttonBuffer[N0_OF_BUTTONS]={BUTTON_IS_RELEASED,BUTTON_IS_RELEASED,BUTTON_IS_RELEASED};
+GPIO_TypeDef* buttonGPIO[N0_OF_BUTTONS]= {A0_GPIO_Port,A1_GPIO_Port,A2_GPIO_Port,A3_GPIO_Port };
 static int buttonPin[N0_OF_BUTTONS]={A0_Pin, A1_Pin, A2_Pin, A3_Pin};
 int buttonTimeOut[N0_OF_BUTTONS] = {0};
 //we define two buffers for debouncing
@@ -31,7 +32,7 @@ void button_reading(void){
 	for(int i = 0; i < N0_OF_BUTTONS; i ++){
 		debounceButtonBuffer3[i] =debounceButtonBuffer2[i];
 		debounceButtonBuffer2[i] =debounceButtonBuffer1[i];
-		debounceButtonBuffer1[i] = HAL_GPIO_ReadPin(GPIOB, buttonPin[i]);
+		debounceButtonBuffer1[i] = HAL_GPIO_ReadPin(buttonGPIO[i], buttonPin[i]);
 		if(debounceButtonBuffer1[i] == debounceButtonBuffer2[i] && debounceButtonBuffer2[i] == debounceButtonBuffer3[i]) {
 			if(debounceButtonBuffer1[i] != buttonBuffer[i]){
 				buttonBuffer[i] = debounceButtonBuffer1[i];
