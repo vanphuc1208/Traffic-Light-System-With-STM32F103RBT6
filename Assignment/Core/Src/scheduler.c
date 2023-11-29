@@ -15,7 +15,7 @@ typedef struct
 	uint32_t Delay;
 	uint32_t Period;
 	uint8_t RunMe;
-	//uint32_t TaskID;
+	// uint32_t TaskID;
 } sTask;
 
 struct Node
@@ -40,14 +40,16 @@ void addNode(sTask newTask)
 	newNode->data.Period = newTask.Period;
 	newNode->data.RunMe = newTask.RunMe;
 	newNode->next = NULL;
-	//list is empty just addNode
+
+	// List is empty, just addNode
 	if(head == NULL)
 	{
 		head=newNode;
 		return;
 	}
 	struct Node* tmp = head;
-	//if the list has A5 B3 C2  we add D3 -> D3 A2 B3 C2
+
+	// If the list has A5 B3 C2 Adding D3 -> D3 A2 B3 C2
 	if(newNode->data.Delay < tmp->data.Delay )
 	{
 		tmp->data.Delay -= newNode->data.Delay;
@@ -56,7 +58,7 @@ void addNode(sTask newTask)
 		return;
 	}
 
-	// if the list has A5 B3 C2 we add D9 -> A5 B3 D1 C1
+	// If the list has A5 B3 C2 Adding D9 -> A5 B3 D1 C1
 	while(tmp->next != NULL)
 	{
 		newNode->data.Delay -= tmp->data.Delay;
@@ -65,7 +67,8 @@ void addNode(sTask newTask)
 
 		tmp = tmp->next;
 	}
-	// tmp dang o B3 va D tro thanh D1
+
+	// tmp current in B3 and D become D1
 	if(tmp->next == NULL)
 	{
 		newNode->data.Delay -= tmp->data.Delay;
@@ -73,7 +76,7 @@ void addNode(sTask newTask)
 	}
 	else
 	{
-		tmp->next->data.Delay -= newNode->data.Delay; // chuyen C2 thanh C1
+		tmp->next->data.Delay -= newNode->data.Delay; // convert C2 to C1
 		newNode->next = tmp->next;
 		tmp->next = newNode;
 	}
@@ -93,6 +96,7 @@ void SCH_Add_Task(void (*p_function)(), uint32_t DELAY, uint32_t PERIOD)
 	newTask.pTask = p_function;
 	newTask.Delay = DELAY;
 	newTask.Period = PERIOD;
+
 	if(newTask.Delay == 0)
 		newTask.RunMe = 1;
 	else
@@ -104,6 +108,7 @@ void SCH_Add_Task(void (*p_function)(), uint32_t DELAY, uint32_t PERIOD)
 void SCH_Update(void)
 {
 	if(head == NULL) return;
+
 	if(head->data.Delay <= 0)
 		head->data.RunMe = 1;
 	else
@@ -113,11 +118,13 @@ void SCH_Update(void)
 void SCH_Dispatch_Tasks(void)
 {
 	if(head == NULL) return;
+
 	if(head->data.RunMe > 0)
 	{
 		(*head->data.pTask)();
 		sTask newTask = head->data;
 		deleteBegin();
+
 		if(newTask.Period != 0)
 			SCH_Add_Task(newTask.pTask, newTask.Period, newTask.Period);
 	}
