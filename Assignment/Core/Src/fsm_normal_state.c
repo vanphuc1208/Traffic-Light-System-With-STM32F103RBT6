@@ -295,6 +295,3 @@ void normalState(void)
 		break;
 	}
 }
-
-
-
