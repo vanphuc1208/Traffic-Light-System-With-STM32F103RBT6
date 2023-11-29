@@ -17,20 +17,20 @@
 #include "fsm_pedestrian.h"
 #include "buzzer.h"
 
-#define INIT 0
+#define INIT 		0
 
-#define TIMER	  5
+#define TIMER	  	5
 
-#define RedGreen  1
-#define RedAm  	  2
-#define GreenRed  3
-#define AmRed     4
-#define ManRed   10
-#define ManAm    11
-#define ManGreen 12
+#define RedGreen  	1
+#define RedAmber  	2
+#define GreenRed  	3
+#define AmberRed  	4
+#define ManRed		10
+#define ManAmber	11
+#define ManGreen	12
 
-#define Pedestrian_INIT 7
-#define Pedestrian_RED	8
+#define Pedestrian_INIT 	7
+#define Pedestrian_RED		8
 #define Pedestrian_GREEN	9
 
 extern int timeRed;
