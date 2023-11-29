@@ -97,6 +97,7 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+
  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
  HAL_TIM_Base_Start_IT(&htim2);
 
@@ -104,8 +105,6 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-// uint8_t value=0;
-// htim3.Instance->CCR1=2048;
 
 // SCH_Add_Task(timerRun, 0, 1);
  SCH_Add_Task(normalState, 1, 1);

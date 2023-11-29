@@ -19,12 +19,13 @@
 
 #define INIT 		0
 
-#define TIMER	  	5
-
 #define RedGreen  	1
 #define RedAmber  	2
 #define GreenRed  	3
 #define AmberRed  	4
+
+#define TIMER	  	5
+
 #define ManRed		10
 #define ManAmber	11
 #define ManGreen	12
@@ -36,10 +37,15 @@
 extern int timeRed;
 extern int timeYellow;
 extern int timeGreen;
+
 extern int status;
+
 extern int time1,time2;
+
 extern int pedestrian_flag;
+
 extern TIM_HandleTypeDef htim3;
+
 extern int buzzerValue;
 
 #endif /* INC_GLOBAL_H_ */
