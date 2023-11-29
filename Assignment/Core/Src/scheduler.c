@@ -25,107 +25,107 @@ struct Node
 };
 
 
-struct Node* head=NULL;
+struct Node* head = NULL;
 
 void SCH_Init(void)
 {
 	head = NULL;
 }
 
-void addNode(sTask newTask)
+void AddNode(sTask NewTask)
 {
-	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-	newNode->data.pTask = newTask.pTask;
-	newNode->data.Delay = newTask.Delay;
-	newNode->data.Period = newTask.Period;
-	newNode->data.RunMe = newTask.RunMe;
-	newNode->next = NULL;
+	struct Node* NewNode = (struct Node*)malloc(sizeof(struct Node));
+	NewNode -> data.pTask = NewTask.pTask;
+	NewNode -> data.Delay = NewTask.Delay;
+	NewNode -> data.Period = NewTask.Period;
+	NewNode -> data.RunMe = NewTask.RunMe;
+	NewNode -> next = NULL;
 
 	// List is empty, just addNode
 	if(head == NULL)
 	{
-		head=newNode;
+		head = NewNode;
 		return;
 	}
-	struct Node* tmp = head;
+	struct Node* temp = head;
 
-	// If the list has A5 B3 C2 Adding D3 -> D3 A2 B3 C2
-	if(newNode->data.Delay < tmp->data.Delay )
+	// If the list has A5 B3 C2 Adding D3  ->  D3 A2 B3 C2
+	if(NewNode -> data.Delay < temp -> data.Delay )
 	{
-		tmp->data.Delay -= newNode->data.Delay;
-		newNode->next = tmp;
-		head = newNode;
+		temp -> data.Delay -= NewNode -> data.Delay;
+		NewNode -> next = temp;
+		head = NewNode;
 		return;
 	}
 
-	// If the list has A5 B3 C2 Adding D9 -> A5 B3 D1 C1
-	while(tmp->next != NULL)
+	// If the list has A5 B3 C2 Adding D9  ->  A5 B3 D1 C1
+	while(temp -> next != NULL)
 	{
-		newNode->data.Delay -= tmp->data.Delay;
-		if(newNode->data.Delay <= tmp->next->data.Delay)
+		NewNode -> data.Delay -= temp -> data.Delay;
+		if(NewNode -> data.Delay <= temp -> next -> data.Delay)
 			break;
 
-		tmp = tmp->next;
+		temp = temp -> next;
 	}
 
-	// tmp current in B3 and D become D1
-	if(tmp->next == NULL)
+	// temp current in B3 and D become D1
+	if(temp -> next == NULL)
 	{
-		newNode->data.Delay -= tmp->data.Delay;
-		tmp->next = newNode;
+		NewNode -> data.Delay -= temp -> data.Delay;
+		temp -> next = NewNode;
 	}
 	else
 	{
-		tmp->next->data.Delay -= newNode->data.Delay; // convert C2 to C1
-		newNode->next = tmp->next;
-		tmp->next = newNode;
+		temp -> next -> data.Delay -= NewNode -> data.Delay; // convert C2 to C1
+		NewNode -> next = temp -> next;
+		temp -> next = NewNode;
 	}
 }
 
-void deleteBegin()
+void DeleteBegin()
 {
-	struct Node* tmp = head;
-	if(tmp == NULL) return;
-	head = head->next;
-	free(tmp);
+	struct Node* temp = head;
+	if(temp == NULL) return;
+	head = head -> next;
+	free(temp);
 }
 
 void SCH_Add_Task(void (*p_function)(), uint32_t DELAY, uint32_t PERIOD)
 {
-	sTask newTask;
-	newTask.pTask = p_function;
-	newTask.Delay = DELAY;
-	newTask.Period = PERIOD;
+	sTask NewTask;
+	NewTask.pTask = p_function;
+	NewTask.Delay = DELAY;
+	NewTask.Period = PERIOD;
 
-	if(newTask.Delay == 0)
-		newTask.RunMe = 1;
+	if(NewTask.Delay == 0)
+		NewTask.RunMe = 1;
 	else
-		newTask.RunMe = 0;
+		NewTask.RunMe = 0;
 
-	addNode(newTask);
+	AddNode(NewTask);
 }
 
 void SCH_Update(void)
 {
 	if(head == NULL) return;
 
-	if(head->data.Delay <= 0)
-		head->data.RunMe = 1;
+	if(head -> data.Delay <= 0)
+		head -> data.RunMe = 1;
 	else
-		head->data.Delay--;
+		head -> data.Delay--;
 }
 
 void SCH_Dispatch_Tasks(void)
 {
 	if(head == NULL) return;
 
-	if(head->data.RunMe > 0)
+	if(head -> data.RunMe > 0)
 	{
-		(*head->data.pTask)();
-		sTask newTask = head->data;
-		deleteBegin();
+		(*head -> data.pTask)();
+		sTask NewTask = head -> data;
+		DeleteBegin();
 
-		if(newTask.Period != 0)
-			SCH_Add_Task(newTask.pTask, newTask.Period, newTask.Period);
+		if(NewTask.Period != 0)
+			SCH_Add_Task(NewTask.pTask, NewTask.Period, NewTask.Period);
 	}
 }

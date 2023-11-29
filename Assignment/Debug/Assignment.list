@@ -29,21 +29,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  12 .debug_info   0000caaa  00000000  00000000  000200cd  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00002327  00000000  00000000  0002cb77  2**0
+ 13 .debug_abbrev 00002316  00000000  00000000  0002cb77  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000b20  00000000  00000000  0002eea0  2**3
+ 14 .debug_aranges 00000b20  00000000  00000000  0002ee90  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 000009e0  00000000  00000000  0002f9c0  2**3
+ 15 .debug_ranges 000009e0  00000000  00000000  0002f9b0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000185e9  00000000  00000000  000303a0  2**0
+ 16 .debug_macro  000185e9  00000000  00000000  00030390  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000d8ac  00000000  00000000  00048989  2**0
+ 17 .debug_line   0000d8ae  00000000  00000000  00048979  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00088cfb  00000000  00000000  00056235  2**0
+ 18 .debug_str    00088cfb  00000000  00000000  00056227  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000def30  2**0
+ 19 .comment      00000053  00000000  00000000  000def22  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002cd4  00000000  00000000  000def84  2**2
+ 20 .debug_frame  00002cd4  00000000  00000000  000def78  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -2523,71 +2523,73 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  800108c:	e7fe      	b.n	800108c <Error_Handler+0x8>
 	...
 
-08001090 <addNode>:
+08001090 <AddNode>:
 {
 	head = NULL;
 }
 
-void addNode(sTask newTask)
+void AddNode(sTask NewTask)
 {
  8001090:	b590      	push	{r4, r7, lr}
  8001092:	b087      	sub	sp, #28
  8001094:	af00      	add	r7, sp, #0
  8001096:	463c      	mov	r4, r7
  8001098:	e884 000f 	stmia.w	r4, {r0, r1, r2, r3}
-	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+	struct Node* NewNode = (struct Node*)malloc(sizeof(struct Node));
  800109c:	2014      	movs	r0, #20
  800109e:	f002 f92b 	bl	80032f8 <malloc>
  80010a2:	4603      	mov	r3, r0
  80010a4:	613b      	str	r3, [r7, #16]
-	newNode->data.pTask = newTask.pTask;
+	NewNode -> data.pTask = NewTask.pTask;
  80010a6:	683a      	ldr	r2, [r7, #0]
  80010a8:	693b      	ldr	r3, [r7, #16]
  80010aa:	601a      	str	r2, [r3, #0]
-	newNode->data.Delay = newTask.Delay;
+	NewNode -> data.Delay = NewTask.Delay;
  80010ac:	687a      	ldr	r2, [r7, #4]
  80010ae:	693b      	ldr	r3, [r7, #16]
  80010b0:	605a      	str	r2, [r3, #4]
-	newNode->data.Period = newTask.Period;
+	NewNode -> data.Period = NewTask.Period;
  80010b2:	68ba      	ldr	r2, [r7, #8]
  80010b4:	693b      	ldr	r3, [r7, #16]
  80010b6:	609a      	str	r2, [r3, #8]
-	newNode->data.RunMe = newTask.RunMe;
+	NewNode -> data.RunMe = NewTask.RunMe;
  80010b8:	7b3a      	ldrb	r2, [r7, #12]
  80010ba:	693b      	ldr	r3, [r7, #16]
  80010bc:	731a      	strb	r2, [r3, #12]
-	newNode->next = NULL;
+	NewNode -> next = NULL;
  80010be:	693b      	ldr	r3, [r7, #16]
  80010c0:	2200      	movs	r2, #0
  80010c2:	611a      	str	r2, [r3, #16]
-	//list is empty just addNode
+
+	// List is empty, just addNode
 	if(head == NULL)
- 80010c4:	4b2b      	ldr	r3, [pc, #172]	; (8001174 <addNode+0xe4>)
+ 80010c4:	4b2b      	ldr	r3, [pc, #172]	; (8001174 <AddNode+0xe4>)
  80010c6:	681b      	ldr	r3, [r3, #0]
  80010c8:	2b00      	cmp	r3, #0
- 80010ca:	d103      	bne.n	80010d4 <addNode+0x44>
+ 80010ca:	d103      	bne.n	80010d4 <AddNode+0x44>
 	{
-		head=newNode;
- 80010cc:	4a29      	ldr	r2, [pc, #164]	; (8001174 <addNode+0xe4>)
+		head = NewNode;
+ 80010cc:	4a29      	ldr	r2, [pc, #164]	; (8001174 <AddNode+0xe4>)
  80010ce:	693b      	ldr	r3, [r7, #16]
  80010d0:	6013      	str	r3, [r2, #0]
 		return;
- 80010d2:	e04c      	b.n	800116e <addNode+0xde>
+ 80010d2:	e04c      	b.n	800116e <AddNode+0xde>
 	}
-	struct Node* tmp = head;
- 80010d4:	4b27      	ldr	r3, [pc, #156]	; (8001174 <addNode+0xe4>)
+	struct Node* temp = head;
+ 80010d4:	4b27      	ldr	r3, [pc, #156]	; (8001174 <AddNode+0xe4>)
  80010d6:	681b      	ldr	r3, [r3, #0]
  80010d8:	617b      	str	r3, [r7, #20]
-	//if the list has A5 B3 C2  we add D3 -> D3 A2 B3 C2
-	if(newNode->data.Delay < tmp->data.Delay )
+
+	// If the list has A5 B3 C2 Adding D3  ->  D3 A2 B3 C2
+	if(NewNode -> data.Delay < temp -> data.Delay )
  80010da:	693b      	ldr	r3, [r7, #16]
  80010dc:	685a      	ldr	r2, [r3, #4]
  80010de:	697b      	ldr	r3, [r7, #20]
  80010e0:	685b      	ldr	r3, [r3, #4]
  80010e2:	429a      	cmp	r2, r3
- 80010e4:	d21e      	bcs.n	8001124 <addNode+0x94>
+ 80010e4:	d21e      	bcs.n	8001124 <AddNode+0x94>
 	{
-		tmp->data.Delay -= newNode->data.Delay;
+		temp -> data.Delay -= NewNode -> data.Delay;
  80010e6:	697b      	ldr	r3, [r7, #20]
  80010e8:	685a      	ldr	r2, [r3, #4]
  80010ea:	693b      	ldr	r3, [r7, #16]
@@ -2595,22 +2597,22 @@ void addNode(sTask newTask)
  80010ee:	1ad2      	subs	r2, r2, r3
  80010f0:	697b      	ldr	r3, [r7, #20]
  80010f2:	605a      	str	r2, [r3, #4]
-		newNode->next = tmp;
+		NewNode -> next = temp;
  80010f4:	693b      	ldr	r3, [r7, #16]
  80010f6:	697a      	ldr	r2, [r7, #20]
  80010f8:	611a      	str	r2, [r3, #16]
-		head = newNode;
- 80010fa:	4a1e      	ldr	r2, [pc, #120]	; (8001174 <addNode+0xe4>)
+		head = NewNode;
+ 80010fa:	4a1e      	ldr	r2, [pc, #120]	; (8001174 <AddNode+0xe4>)
  80010fc:	693b      	ldr	r3, [r7, #16]
  80010fe:	6013      	str	r3, [r2, #0]
 		return;
- 8001100:	e035      	b.n	800116e <addNode+0xde>
+ 8001100:	e035      	b.n	800116e <AddNode+0xde>
 	}
 
-	// if the list has A5 B3 C2 we add D9 -> A5 B3 D1 C1
-	while(tmp->next != NULL)
+	// If the list has A5 B3 C2 Adding D9  ->  A5 B3 D1 C1
+	while(temp -> next != NULL)
 	{
-		newNode->data.Delay -= tmp->data.Delay;
+		NewNode -> data.Delay -= temp -> data.Delay;
  8001102:	693b      	ldr	r3, [r7, #16]
  8001104:	685a      	ldr	r2, [r3, #4]
  8001106:	697b      	ldr	r3, [r7, #20]
@@ -2618,37 +2620,38 @@ void addNode(sTask newTask)
  800110a:	1ad2      	subs	r2, r2, r3
  800110c:	693b      	ldr	r3, [r7, #16]
  800110e:	605a      	str	r2, [r3, #4]
-		if(newNode->data.Delay <= tmp->next->data.Delay)
+		if(NewNode -> data.Delay <= temp -> next -> data.Delay)
  8001110:	693b      	ldr	r3, [r7, #16]
  8001112:	685a      	ldr	r2, [r3, #4]
  8001114:	697b      	ldr	r3, [r7, #20]
  8001116:	691b      	ldr	r3, [r3, #16]
  8001118:	685b      	ldr	r3, [r3, #4]
  800111a:	429a      	cmp	r2, r3
- 800111c:	d907      	bls.n	800112e <addNode+0x9e>
+ 800111c:	d907      	bls.n	800112e <AddNode+0x9e>
 			break;
 
-		tmp = tmp->next;
+		temp = temp -> next;
  800111e:	697b      	ldr	r3, [r7, #20]
  8001120:	691b      	ldr	r3, [r3, #16]
  8001122:	617b      	str	r3, [r7, #20]
-	while(tmp->next != NULL)
+	while(temp -> next != NULL)
  8001124:	697b      	ldr	r3, [r7, #20]
  8001126:	691b      	ldr	r3, [r3, #16]
  8001128:	2b00      	cmp	r3, #0
- 800112a:	d1ea      	bne.n	8001102 <addNode+0x72>
- 800112c:	e000      	b.n	8001130 <addNode+0xa0>
+ 800112a:	d1ea      	bne.n	8001102 <AddNode+0x72>
+ 800112c:	e000      	b.n	8001130 <AddNode+0xa0>
 			break;
  800112e:	bf00      	nop
 	}
-	// tmp dang o B3 va D tro thanh D1
-	if(tmp->next == NULL)
+
+	// temp current in B3 and D become D1
+	if(temp -> next == NULL)
  8001130:	697b      	ldr	r3, [r7, #20]
  8001132:	691b      	ldr	r3, [r3, #16]
  8001134:	2b00      	cmp	r3, #0
- 8001136:	d10a      	bne.n	800114e <addNode+0xbe>
+ 8001136:	d10a      	bne.n	800114e <AddNode+0xbe>
 	{
-		newNode->data.Delay -= tmp->data.Delay;
+		NewNode -> data.Delay -= temp -> data.Delay;
  8001138:	693b      	ldr	r3, [r7, #16]
  800113a:	685a      	ldr	r2, [r3, #4]
  800113c:	697b      	ldr	r3, [r7, #20]
@@ -2656,15 +2659,15 @@ void addNode(sTask newTask)
  8001140:	1ad2      	subs	r2, r2, r3
  8001142:	693b      	ldr	r3, [r7, #16]
  8001144:	605a      	str	r2, [r3, #4]
-		tmp->next = newNode;
+		temp -> next = NewNode;
  8001146:	697b      	ldr	r3, [r7, #20]
  8001148:	693a      	ldr	r2, [r7, #16]
  800114a:	611a      	str	r2, [r3, #16]
- 800114c:	e00f      	b.n	800116e <addNode+0xde>
+ 800114c:	e00f      	b.n	800116e <AddNode+0xde>
 	}
 	else
 	{
-		tmp->next->data.Delay -= newNode->data.Delay; // chuyen C2 thanh C1
+		temp -> next -> data.Delay -= NewNode -> data.Delay; // convert C2 to C1
  800114e:	697b      	ldr	r3, [r7, #20]
  8001150:	691b      	ldr	r3, [r3, #16]
  8001152:	6859      	ldr	r1, [r3, #4]
@@ -2674,12 +2677,12 @@ void addNode(sTask newTask)
  800115a:	691b      	ldr	r3, [r3, #16]
  800115c:	1a8a      	subs	r2, r1, r2
  800115e:	605a      	str	r2, [r3, #4]
-		newNode->next = tmp->next;
+		NewNode -> next = temp -> next;
  8001160:	697b      	ldr	r3, [r7, #20]
  8001162:	691a      	ldr	r2, [r3, #16]
  8001164:	693b      	ldr	r3, [r7, #16]
  8001166:	611a      	str	r2, [r3, #16]
-		tmp->next = newNode;
+		temp -> next = NewNode;
  8001168:	697b      	ldr	r3, [r7, #20]
  800116a:	693a      	ldr	r2, [r7, #16]
  800116c:	611a      	str	r2, [r3, #16]
@@ -2690,32 +2693,32 @@ void addNode(sTask newTask)
  8001172:	bd90      	pop	{r4, r7, pc}
  8001174:	200000f8 	.word	0x200000f8
 
-08001178 <deleteBegin>:
+08001178 <DeleteBegin>:
 
-void deleteBegin()
+void DeleteBegin()
 {
  8001178:	b580      	push	{r7, lr}
  800117a:	b082      	sub	sp, #8
  800117c:	af00      	add	r7, sp, #0
-	struct Node* tmp = head;
- 800117e:	4b09      	ldr	r3, [pc, #36]	; (80011a4 <deleteBegin+0x2c>)
+	struct Node* temp = head;
+ 800117e:	4b09      	ldr	r3, [pc, #36]	; (80011a4 <DeleteBegin+0x2c>)
  8001180:	681b      	ldr	r3, [r3, #0]
  8001182:	607b      	str	r3, [r7, #4]
-	if(tmp == NULL) return;
+	if(temp == NULL) return;
  8001184:	687b      	ldr	r3, [r7, #4]
  8001186:	2b00      	cmp	r3, #0
- 8001188:	d008      	beq.n	800119c <deleteBegin+0x24>
-	head = head->next;
- 800118a:	4b06      	ldr	r3, [pc, #24]	; (80011a4 <deleteBegin+0x2c>)
+ 8001188:	d008      	beq.n	800119c <DeleteBegin+0x24>
+	head = head -> next;
+ 800118a:	4b06      	ldr	r3, [pc, #24]	; (80011a4 <DeleteBegin+0x2c>)
  800118c:	681b      	ldr	r3, [r3, #0]
  800118e:	691b      	ldr	r3, [r3, #16]
- 8001190:	4a04      	ldr	r2, [pc, #16]	; (80011a4 <deleteBegin+0x2c>)
+ 8001190:	4a04      	ldr	r2, [pc, #16]	; (80011a4 <DeleteBegin+0x2c>)
  8001192:	6013      	str	r3, [r2, #0]
-	free(tmp);
+	free(temp);
  8001194:	6878      	ldr	r0, [r7, #4]
  8001196:	f002 f8b7 	bl	8003308 <free>
- 800119a:	e000      	b.n	800119e <deleteBegin+0x26>
-	if(tmp == NULL) return;
+ 800119a:	e000      	b.n	800119e <DeleteBegin+0x26>
+	if(temp == NULL) return;
  800119c:	bf00      	nop
 }
  800119e:	3708      	adds	r7, #8
@@ -2733,33 +2736,34 @@ void SCH_Add_Task(void (*p_function)(), uint32_t DELAY, uint32_t PERIOD)
  80011ae:	60f8      	str	r0, [r7, #12]
  80011b0:	60b9      	str	r1, [r7, #8]
  80011b2:	607a      	str	r2, [r7, #4]
-	sTask newTask;
-	newTask.pTask = p_function;
+	sTask NewTask;
+	NewTask.pTask = p_function;
  80011b4:	68fb      	ldr	r3, [r7, #12]
  80011b6:	613b      	str	r3, [r7, #16]
-	newTask.Delay = DELAY;
+	NewTask.Delay = DELAY;
  80011b8:	68bb      	ldr	r3, [r7, #8]
  80011ba:	617b      	str	r3, [r7, #20]
-	newTask.Period = PERIOD;
+	NewTask.Period = PERIOD;
  80011bc:	687b      	ldr	r3, [r7, #4]
  80011be:	61bb      	str	r3, [r7, #24]
-	if(newTask.Delay == 0)
+
+	if(NewTask.Delay == 0)
  80011c0:	697b      	ldr	r3, [r7, #20]
  80011c2:	2b00      	cmp	r3, #0
  80011c4:	d102      	bne.n	80011cc <SCH_Add_Task+0x24>
-		newTask.RunMe = 1;
+		NewTask.RunMe = 1;
  80011c6:	2301      	movs	r3, #1
  80011c8:	773b      	strb	r3, [r7, #28]
  80011ca:	e001      	b.n	80011d0 <SCH_Add_Task+0x28>
 	else
-		newTask.RunMe = 0;
+		NewTask.RunMe = 0;
  80011cc:	2300      	movs	r3, #0
  80011ce:	773b      	strb	r3, [r7, #28]
 
-	addNode(newTask);
+	AddNode(NewTask);
  80011d0:	f107 0310 	add.w	r3, r7, #16
  80011d4:	cb0f      	ldmia	r3, {r0, r1, r2, r3}
- 80011d6:	f7ff ff5b 	bl	8001090 <addNode>
+ 80011d6:	f7ff ff5b 	bl	8001090 <AddNode>
 }
  80011da:	bf00      	nop
  80011dc:	3720      	adds	r7, #32
@@ -2778,20 +2782,21 @@ void SCH_Update(void)
  80011ea:	681b      	ldr	r3, [r3, #0]
  80011ec:	2b00      	cmp	r3, #0
  80011ee:	d00f      	beq.n	8001210 <SCH_Update+0x2c>
-	if(head->data.Delay <= 0)
+
+	if(head -> data.Delay <= 0)
  80011f0:	4b09      	ldr	r3, [pc, #36]	; (8001218 <SCH_Update+0x34>)
  80011f2:	681b      	ldr	r3, [r3, #0]
  80011f4:	685b      	ldr	r3, [r3, #4]
  80011f6:	2b00      	cmp	r3, #0
  80011f8:	d104      	bne.n	8001204 <SCH_Update+0x20>
-		head->data.RunMe = 1;
+		head -> data.RunMe = 1;
  80011fa:	4b07      	ldr	r3, [pc, #28]	; (8001218 <SCH_Update+0x34>)
  80011fc:	681b      	ldr	r3, [r3, #0]
  80011fe:	2201      	movs	r2, #1
  8001200:	731a      	strb	r2, [r3, #12]
  8001202:	e006      	b.n	8001212 <SCH_Update+0x2e>
 	else
-		head->data.Delay--;
+		head -> data.Delay--;
  8001204:	4b04      	ldr	r3, [pc, #16]	; (8001218 <SCH_Update+0x34>)
  8001206:	681b      	ldr	r3, [r3, #0]
  8001208:	685a      	ldr	r2, [r3, #4]
@@ -2818,31 +2823,33 @@ void SCH_Dispatch_Tasks(void)
  8001224:	681b      	ldr	r3, [r3, #0]
  8001226:	2b00      	cmp	r3, #0
  8001228:	d01a      	beq.n	8001260 <SCH_Dispatch_Tasks+0x44>
-	if(head->data.RunMe > 0)
+
+	if(head -> data.RunMe > 0)
  800122a:	4b0f      	ldr	r3, [pc, #60]	; (8001268 <SCH_Dispatch_Tasks+0x4c>)
  800122c:	681b      	ldr	r3, [r3, #0]
  800122e:	7b1b      	ldrb	r3, [r3, #12]
  8001230:	2b00      	cmp	r3, #0
  8001232:	d016      	beq.n	8001262 <SCH_Dispatch_Tasks+0x46>
 	{
-		(*head->data.pTask)();
+		(*head -> data.pTask)();
  8001234:	4b0c      	ldr	r3, [pc, #48]	; (8001268 <SCH_Dispatch_Tasks+0x4c>)
  8001236:	681b      	ldr	r3, [r3, #0]
  8001238:	681b      	ldr	r3, [r3, #0]
  800123a:	4798      	blx	r3
-		sTask newTask = head->data;
+		sTask NewTask = head -> data;
  800123c:	4b0a      	ldr	r3, [pc, #40]	; (8001268 <SCH_Dispatch_Tasks+0x4c>)
  800123e:	681b      	ldr	r3, [r3, #0]
  8001240:	463c      	mov	r4, r7
  8001242:	cb0f      	ldmia	r3, {r0, r1, r2, r3}
  8001244:	e884 000f 	stmia.w	r4, {r0, r1, r2, r3}
-		deleteBegin();
- 8001248:	f7ff ff96 	bl	8001178 <deleteBegin>
-		if(newTask.Period != 0)
+		DeleteBegin();
+ 8001248:	f7ff ff96 	bl	8001178 <DeleteBegin>
+
+		if(NewTask.Period != 0)
  800124c:	68bb      	ldr	r3, [r7, #8]
  800124e:	2b00      	cmp	r3, #0
  8001250:	d007      	beq.n	8001262 <SCH_Dispatch_Tasks+0x46>
-			SCH_Add_Task(newTask.pTask, newTask.Period, newTask.Period);
+			SCH_Add_Task(NewTask.pTask, NewTask.Period, NewTask.Period);
  8001252:	683b      	ldr	r3, [r7, #0]
  8001254:	68b9      	ldr	r1, [r7, #8]
  8001256:	68ba      	ldr	r2, [r7, #8]
