@@ -13,7 +13,7 @@
 
 int Current_Timer_Counter(int timer);
 
-int IsTimerUp(int timer);
+int isTimerUp(int timer);
 
 void setTimer(int timer, int duration);
 

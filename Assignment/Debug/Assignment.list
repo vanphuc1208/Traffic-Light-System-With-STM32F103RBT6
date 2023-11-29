@@ -957,9 +957,9 @@ void normalState(void)
 		displayGreen2();
  800072a:	f7ff fe57 	bl	80003dc <displayGreen2>
 
-		if(IsTimerUp(0) == 1)	// Transit State
+		if(isTimerUp(0) == 1)	// Transit State
  800072e:	2000      	movs	r0, #0
- 8000730:	f000 fd9c 	bl	800126c <IsTimerUp>
+ 8000730:	f000 fd9c 	bl	800126c <isTimerUp>
  8000734:	4603      	mov	r3, r0
  8000736:	2b01      	cmp	r3, #1
  8000738:	d117      	bne.n	800076a <normalState+0xc6>
@@ -994,9 +994,9 @@ void normalState(void)
  8000768:	6013      	str	r3, [r2, #0]
 		}
 
-		if(IsTimerUp(1) == 1)	// Update Time
+		if(isTimerUp(1) == 1)	// Update Time
  800076a:	2001      	movs	r0, #1
- 800076c:	f000 fd7e 	bl	800126c <IsTimerUp>
+ 800076c:	f000 fd7e 	bl	800126c <isTimerUp>
  8000770:	4603      	mov	r3, r0
  8000772:	2b01      	cmp	r3, #1
  8000774:	d10d      	bne.n	8000792 <normalState+0xee>
@@ -1085,9 +1085,9 @@ void normalState(void)
 		displayYellow2();
  80007f4:	f7ff fde2 	bl	80003bc <displayYellow2>
 
-		if(IsTimerUp(0)==1)		// Transit State
+		if(isTimerUp(0)==1)		// Transit State
  80007f8:	2000      	movs	r0, #0
- 80007fa:	f000 fd37 	bl	800126c <IsTimerUp>
+ 80007fa:	f000 fd37 	bl	800126c <isTimerUp>
  80007fe:	4603      	mov	r3, r0
  8000800:	2b01      	cmp	r3, #1
  8000802:	d11e      	bne.n	8000842 <normalState+0x19e>
@@ -1132,9 +1132,9 @@ void normalState(void)
  8000840:	601a      	str	r2, [r3, #0]
 		}
 
-		if(IsTimerUp(0) == 1)	// Update Time
+		if(isTimerUp(0) == 1)	// Update Time
  8000842:	2000      	movs	r0, #0
- 8000844:	f000 fd12 	bl	800126c <IsTimerUp>
+ 8000844:	f000 fd12 	bl	800126c <isTimerUp>
  8000848:	4603      	mov	r3, r0
  800084a:	2b01      	cmp	r3, #1
  800084c:	d10d      	bne.n	800086a <normalState+0x1c6>
@@ -1231,9 +1231,9 @@ void normalState(void)
 		displayRed2();
  80008e8:	f7ff fd58 	bl	800039c <displayRed2>
 
-		if(IsTimerUp(0) == 1)	// Transit State
+		if(isTimerUp(0) == 1)	// Transit State
  80008ec:	2000      	movs	r0, #0
- 80008ee:	f000 fcbd 	bl	800126c <IsTimerUp>
+ 80008ee:	f000 fcbd 	bl	800126c <isTimerUp>
  80008f2:	4603      	mov	r3, r0
  80008f4:	2b01      	cmp	r3, #1
  80008f6:	d117      	bne.n	8000928 <normalState+0x284>
@@ -1268,9 +1268,9 @@ void normalState(void)
  8000926:	6013      	str	r3, [r2, #0]
 		}
 
-		if(IsTimerUp(1)==1)		// Update Time
+		if(isTimerUp(1)==1)		// Update Time
  8000928:	2001      	movs	r0, #1
- 800092a:	f000 fc9f 	bl	800126c <IsTimerUp>
+ 800092a:	f000 fc9f 	bl	800126c <isTimerUp>
  800092e:	4603      	mov	r3, r0
  8000930:	2b01      	cmp	r3, #1
  8000932:	d10d      	bne.n	8000950 <normalState+0x2ac>
@@ -1383,9 +1383,9 @@ void normalState(void)
 		displayRed2();
  80009de:	f7ff fcdd 	bl	800039c <displayRed2>
 
-		if(IsTimerUp(0) == 1)	// Transit State
+		if(isTimerUp(0) == 1)	// Transit State
  80009e2:	2000      	movs	r0, #0
- 80009e4:	f000 fc42 	bl	800126c <IsTimerUp>
+ 80009e4:	f000 fc42 	bl	800126c <isTimerUp>
  80009e8:	4603      	mov	r3, r0
  80009ea:	2b01      	cmp	r3, #1
  80009ec:	d11e      	bne.n	8000a2c <normalState+0x388>
@@ -1463,9 +1463,9 @@ void normalState(void)
  8000a62:	4a45      	ldr	r2, [pc, #276]	; (8000b78 <normalState+0x4d4>)
  8000a64:	6013      	str	r3, [r2, #0]
 
-		if(IsTimerUp(1) == 1)	// Update Time
+		if(isTimerUp(1) == 1)	// Update Time
  8000a66:	2001      	movs	r0, #1
- 8000a68:	f000 fc00 	bl	800126c <IsTimerUp>
+ 8000a68:	f000 fc00 	bl	800126c <isTimerUp>
  8000a6c:	4603      	mov	r3, r0
  8000a6e:	2b01      	cmp	r3, #1
  8000a70:	d10d      	bne.n	8000a8e <normalState+0x3ea>
@@ -1550,9 +1550,9 @@ void normalState(void)
  8000aea:	e0d3      	b.n	8000c94 <normalState+0x5f0>
 
 	case ManRed:
-		if(IsTimerUp(2) == 1)
+		if(isTimerUp(2) == 1)
  8000aec:	2002      	movs	r0, #2
- 8000aee:	f000 fbbd 	bl	800126c <IsTimerUp>
+ 8000aee:	f000 fbbd 	bl	800126c <isTimerUp>
  8000af2:	4603      	mov	r3, r0
  8000af4:	2b01      	cmp	r3, #1
  8000af6:	d105      	bne.n	8000b04 <normalState+0x460>
@@ -1636,9 +1636,9 @@ void normalState(void)
  8000b84:	2000002c 	.word	0x2000002c
 
 	case ManAmber:
-		if(IsTimerUp(2) == 1)
+		if(isTimerUp(2) == 1)
  8000b88:	2002      	movs	r0, #2
- 8000b8a:	f000 fb6f 	bl	800126c <IsTimerUp>
+ 8000b8a:	f000 fb6f 	bl	800126c <isTimerUp>
  8000b8e:	4603      	mov	r3, r0
  8000b90:	2b01      	cmp	r3, #1
  8000b92:	d105      	bne.n	8000ba0 <normalState+0x4fc>
@@ -1713,9 +1713,9 @@ void normalState(void)
  8000bfe:	e04d      	b.n	8000c9c <normalState+0x5f8>
 
 	case ManGreen:
-		if(IsTimerUp(2) == 1)
+		if(isTimerUp(2) == 1)
  8000c00:	2002      	movs	r0, #2
- 8000c02:	f000 fb33 	bl	800126c <IsTimerUp>
+ 8000c02:	f000 fb33 	bl	800126c <isTimerUp>
  8000c06:	4603      	mov	r3, r0
  8000c08:	2b01      	cmp	r3, #1
  8000c0a:	d105      	bne.n	8000c18 <normalState+0x574>
@@ -1866,9 +1866,9 @@ void fsm_pedestrian(void)
  8000ce4:	f7ff faea 	bl	80002bc <buzzer>
 			break;
  8000ce8:	e01e      	b.n	8000d28 <fsm_pedestrian+0x68>
-			if(IsTimerUp(3) == 1)
+			if(isTimerUp(3) == 1)
  8000cea:	2003      	movs	r0, #3
- 8000cec:	f000 fabe 	bl	800126c <IsTimerUp>
+ 8000cec:	f000 fabe 	bl	800126c <isTimerUp>
  8000cf0:	4603      	mov	r3, r0
  8000cf2:	2b01      	cmp	r3, #1
  8000cf4:	d102      	bne.n	8000cfc <fsm_pedestrian+0x3c>
@@ -1886,9 +1886,9 @@ void fsm_pedestrian(void)
  8000d06:	f7ff fad9 	bl	80002bc <buzzer>
 			break;
  8000d0a:	e00d      	b.n	8000d28 <fsm_pedestrian+0x68>
-			if(IsTimerUp(3) == 1)
+			if(isTimerUp(3) == 1)
  8000d0c:	2003      	movs	r0, #3
- 8000d0e:	f000 faad 	bl	800126c <IsTimerUp>
+ 8000d0e:	f000 faad 	bl	800126c <isTimerUp>
  8000d12:	4603      	mov	r3, r0
  8000d14:	2b01      	cmp	r3, #1
  8000d16:	d102      	bne.n	8000d1e <fsm_pedestrian+0x5e>
@@ -2865,19 +2865,19 @@ void SCH_Dispatch_Tasks(void)
  8001266:	bd90      	pop	{r4, r7, pc}
  8001268:	200000f8 	.word	0x200000f8
 
-0800126c <IsTimerUp>:
+0800126c <isTimerUp>:
 
 int timer_counter[TIMER];
 int timer_flag[TIMER];
 
-int IsTimerUp(int timer)
+int isTimerUp(int timer)
 {
  800126c:	b480      	push	{r7}
  800126e:	b083      	sub	sp, #12
  8001270:	af00      	add	r7, sp, #0
  8001272:	6078      	str	r0, [r7, #4]
 	return (timer_flag[timer] == 1);
- 8001274:	4a06      	ldr	r2, [pc, #24]	; (8001290 <IsTimerUp+0x24>)
+ 8001274:	4a06      	ldr	r2, [pc, #24]	; (8001290 <isTimerUp+0x24>)
  8001276:	687b      	ldr	r3, [r7, #4]
  8001278:	f852 3023 	ldr.w	r3, [r2, r3, lsl #2]
  800127c:	2b01      	cmp	r3, #1

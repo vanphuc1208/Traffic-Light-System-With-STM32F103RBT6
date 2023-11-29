@@ -76,7 +76,7 @@ void normalState(void)
 		displayRed1();
 		displayGreen2();
 
-		if(IsTimerUp(0) == 1)	// Transit State
+		if(isTimerUp(0) == 1)	// Transit State
 		{
 			status = RedAmber;
 
@@ -87,7 +87,7 @@ void normalState(void)
 			time2 = timeYellow;
 		}
 
-		if(IsTimerUp(1) == 1)	// Update Time
+		if(isTimerUp(1) == 1)	// Update Time
 		{
 			setTimer(1, 100);
 
@@ -119,7 +119,7 @@ void normalState(void)
 		displayRed1();
 		displayYellow2();
 
-		if(IsTimerUp(0)==1)		// Transit State
+		if(isTimerUp(0)==1)		// Transit State
 		{
 			status = GreenRed;
 
@@ -133,7 +133,7 @@ void normalState(void)
 				pedestrian_flag = Pedestrian_GREEN;
 		}
 
-		if(IsTimerUp(0) == 1)	// Update Time
+		if(isTimerUp(0) == 1)	// Update Time
 		{
 			setTimer(1, 100);
 
@@ -166,7 +166,7 @@ void normalState(void)
 		displayGreen1();
 		displayRed2();
 
-		if(IsTimerUp(0) == 1)	// Transit State
+		if(isTimerUp(0) == 1)	// Transit State
 		{
 			status = AmberRed;
 
@@ -177,7 +177,7 @@ void normalState(void)
 			time2 = timeYellow;
 		}
 
-		if(IsTimerUp(1)==1)		// Update Time
+		if(isTimerUp(1)==1)		// Update Time
 		{
 			setTimer(1, 100);
 
@@ -213,7 +213,7 @@ void normalState(void)
 		displayYellow1();
 		displayRed2();
 
-		if(IsTimerUp(0) == 1)	// Transit State
+		if(isTimerUp(0) == 1)	// Transit State
 		{
 			status = RedGreen;
 
@@ -233,7 +233,7 @@ void normalState(void)
 		if(timeYellow < 5)
 			buzzerValue += 256 * (5 - time1);
 
-		if(IsTimerUp(1) == 1)	// Update Time
+		if(isTimerUp(1) == 1)	// Update Time
 		{
 			setTimer(1, 100);
 
@@ -263,7 +263,7 @@ void normalState(void)
 		break;
 
 	case ManRed:
-		if(IsTimerUp(2) == 1)
+		if(isTimerUp(2) == 1)
 		{
 			setTimer(2, 25);
 			toggleRed();
@@ -291,7 +291,7 @@ void normalState(void)
 		break;
 
 	case ManAmber:
-		if(IsTimerUp(2) == 1)
+		if(isTimerUp(2) == 1)
 		{
 			setTimer(2, 25);
 			toggleYellow();
@@ -319,7 +319,7 @@ void normalState(void)
 		break;
 
 	case ManGreen:
-		if(IsTimerUp(2) == 1)
+		if(isTimerUp(2) == 1)
 		{
 			setTimer(2, 25);
 			toggleGreen();

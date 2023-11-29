@@ -2974,9 +2974,9 @@ LOAD c:/st/stm32cubeide_1.7.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .text.SCH_Dispatch_Tasks
                 0x000000000800121c       0x50 ./Core/Src/scheduler.o
                 0x000000000800121c                SCH_Dispatch_Tasks
- .text.IsTimerUp
+ .text.isTimerUp
                 0x000000000800126c       0x28 ./Core/Src/software_timer.o
-                0x000000000800126c                IsTimerUp
+                0x000000000800126c                isTimerUp
  .text.setTimer
                 0x0000000008001294       0x30 ./Core/Src/software_timer.o
                 0x0000000008001294                setTimer

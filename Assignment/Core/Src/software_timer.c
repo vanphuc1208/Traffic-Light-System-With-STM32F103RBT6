@@ -10,7 +10,7 @@
 int timer_counter[TIMER];
 int timer_flag[TIMER];
 
-int IsTimerUp(int timer)
+int isTimerUp(int timer)
 {
 	return (timer_flag[timer] == 1);
 }

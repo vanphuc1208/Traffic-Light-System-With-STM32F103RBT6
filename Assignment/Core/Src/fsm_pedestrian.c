@@ -19,7 +19,7 @@ void fsm_pedestrian(void)
 			break;
 
 		case Pedestrian_RED:
-			if(IsTimerUp(3) == 1)
+			if(isTimerUp(3) == 1)
 				pedestrian_flag = Pedestrian_INIT;
 
 			displayPedestrianRed();
@@ -29,7 +29,7 @@ void fsm_pedestrian(void)
 			break;
 
 		case Pedestrian_GREEN:
-			if(IsTimerUp(3) == 1)
+			if(isTimerUp(3) == 1)
 				pedestrian_flag = Pedestrian_INIT;
 
 			displayPedestrianGreen();
