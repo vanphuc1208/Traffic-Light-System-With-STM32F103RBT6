@@ -95,7 +95,7 @@ void normalState(void)
 			time2--;
 		}
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
 		{
 			status = ManRed;
 
@@ -107,7 +107,7 @@ void normalState(void)
 
 			setTimer(2, 25);
 		}
-		if(is_button_pressed(0))
+		if(Is_Button_Pressed(0))
 		{
 			pedestrian_flag = Pedestrian_RED;
 			setTimer(3, (timeRed + timeGreen) * 100);
@@ -141,7 +141,7 @@ void normalState(void)
 			time2--;
 		}
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
 		{
 			status = ManRed;
 
@@ -154,7 +154,7 @@ void normalState(void)
 			setTimer(2, 25);
 		}
 
-		if(is_button_pressed(0))
+		if(Is_Button_Pressed(0))
 		{
 			pedestrian_flag = Pedestrian_RED;
 			setTimer(3, (timeRed + timeGreen) * 100);
@@ -188,7 +188,7 @@ void normalState(void)
 		if(timeYellow < 5 && time1 <= 5 - timeYellow)
 				buzzerValue = 512 * (5 - timeYellow - time1);
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
 		{
 			status = ManRed;
 
@@ -201,7 +201,7 @@ void normalState(void)
 			setTimer(2, 25);
 		}
 
-		if(is_button_pressed(0))
+		if(Is_Button_Pressed(0))
 		{
 			pedestrian_flag = Pedestrian_GREEN;
 			setTimer(3, (timeRed + timeGreen) * 100);
@@ -241,7 +241,7 @@ void normalState(void)
 			time2--;
 		}
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
 		{
 			status = ManRed;
 
@@ -254,7 +254,7 @@ void normalState(void)
 			setTimer(2, 25);
 		}
 
-		if(is_button_pressed(0))
+		if(Is_Button_Pressed(0))
 		{
 			pedestrian_flag = Pedestrian_GREEN;
 			setTimer(3, (timeRed + timeGreen) * 100);
@@ -269,13 +269,13 @@ void normalState(void)
 			toggleRed();
 		}
 
-		if(is_button_pressed(2))
+		if(Is_Button_Pressed(2))
 			increase();
 
-		if(is_button_pressed(3))
+		if(Is_Button_Pressed(3))
 			balance(time1, timeYellow, timeGreen);
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
 		{
 			status = ManAmber;
 
@@ -297,13 +297,13 @@ void normalState(void)
 			toggleYellow();
 		}
 
-		if(is_button_pressed(2))
+		if(Is_Button_Pressed(2))
 			increase();
 
-		if(is_button_pressed(3))
+		if(Is_Button_Pressed(3))
 			balance(timeRed, time1, timeGreen);
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
 		{
 			status = ManGreen;
 
@@ -325,13 +325,13 @@ void normalState(void)
 			toggleGreen();
 		}
 
-		if(is_button_pressed(2))
+		if(Is_Button_Pressed(2))
 			increase();
 
-		if(is_button_pressed(3))
+		if(Is_Button_Pressed(3))
 			balance(timeRed, timeYellow, time1);
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
 		{
 			status = RedGreen;
 

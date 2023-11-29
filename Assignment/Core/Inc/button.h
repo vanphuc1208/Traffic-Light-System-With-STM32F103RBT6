@@ -8,8 +8,8 @@
 #ifndef INC_BUTTON_H_
 #define INC_BUTTON_H_
 
-void button_reading(void);
+void Button_Reading(void);
 
-int is_button_pressed(int index);
+int Is_Button_Pressed(int index);
 
 #endif /* INC_BUTTON_H_ */

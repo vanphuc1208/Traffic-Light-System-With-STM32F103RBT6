@@ -2879,12 +2879,12 @@ LOAD c:/st/stm32cubeide_1.7.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  *(.text)
  .text          0x000000000800010c       0x40 c:/st/stm32cubeide_1.7.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7-m/nofp/crtbegin.o
  *(.text*)
- .text.button_reading
+ .text.Button_Reading
                 0x000000000800014c      0x12c ./Core/Src/button.o
-                0x000000000800014c                button_reading
- .text.is_button_pressed
+                0x000000000800014c                Button_Reading
+ .text.Is_Button_Pressed
                 0x0000000008000278       0x44 ./Core/Src/button.o
-                0x0000000008000278                is_button_pressed
+                0x0000000008000278                Is_Button_Pressed
  .text.buzzer   0x00000000080002bc       0x20 ./Core/Src/buzzer.o
                 0x00000000080002bc                buzzer
  .text.clearAllLed1

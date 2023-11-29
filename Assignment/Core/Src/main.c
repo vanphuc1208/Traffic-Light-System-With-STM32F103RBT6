@@ -62,7 +62,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	timerRun();
 	SCH_Update();
-	button_reading();
+	Button_Reading();
 }
 /* USER CODE END 0 */
 

@@ -76,12 +76,12 @@ Disassembly of section .text:
  8000144:	200000a8 	.word	0x200000a8
  8000148:	080034b0 	.word	0x080034b0
 
-0800014c <button_reading>:
+0800014c <Button_Reading>:
 // Defining  counter for automatically increasing the value
 // After the button is pressed more than 1 second.
 
 int buttonFlag[N0_OF_BUTTONS] = {0};
-void button_reading(void)
+void Button_Reading(void)
 {
  800014c:	b580      	push	{r7, lr}
  800014e:	b082      	sub	sp, #8
@@ -89,33 +89,33 @@ void button_reading(void)
 	for(int i = 0; i < N0_OF_BUTTONS; i ++)
  8000152:	2300      	movs	r3, #0
  8000154:	607b      	str	r3, [r7, #4]
- 8000156:	e076      	b.n	8000246 <button_reading+0xfa>
+ 8000156:	e076      	b.n	8000246 <Button_Reading+0xfa>
 	{
 		debounceButtonBuffer3[i] =debounceButtonBuffer2[i];
- 8000158:	4a3f      	ldr	r2, [pc, #252]	; (8000258 <button_reading+0x10c>)
+ 8000158:	4a3f      	ldr	r2, [pc, #252]	; (8000258 <Button_Reading+0x10c>)
  800015a:	687b      	ldr	r3, [r7, #4]
  800015c:	4413      	add	r3, r2
  800015e:	7819      	ldrb	r1, [r3, #0]
- 8000160:	4a3e      	ldr	r2, [pc, #248]	; (800025c <button_reading+0x110>)
+ 8000160:	4a3e      	ldr	r2, [pc, #248]	; (800025c <Button_Reading+0x110>)
  8000162:	687b      	ldr	r3, [r7, #4]
  8000164:	4413      	add	r3, r2
  8000166:	460a      	mov	r2, r1
  8000168:	701a      	strb	r2, [r3, #0]
 		debounceButtonBuffer2[i] =debounceButtonBuffer1[i];
- 800016a:	4a3d      	ldr	r2, [pc, #244]	; (8000260 <button_reading+0x114>)
+ 800016a:	4a3d      	ldr	r2, [pc, #244]	; (8000260 <Button_Reading+0x114>)
  800016c:	687b      	ldr	r3, [r7, #4]
  800016e:	4413      	add	r3, r2
  8000170:	7819      	ldrb	r1, [r3, #0]
- 8000172:	4a39      	ldr	r2, [pc, #228]	; (8000258 <button_reading+0x10c>)
+ 8000172:	4a39      	ldr	r2, [pc, #228]	; (8000258 <Button_Reading+0x10c>)
  8000174:	687b      	ldr	r3, [r7, #4]
  8000176:	4413      	add	r3, r2
  8000178:	460a      	mov	r2, r1
  800017a:	701a      	strb	r2, [r3, #0]
 		debounceButtonBuffer1[i] = HAL_GPIO_ReadPin(buttonGPIO[i], buttonPin[i]);
- 800017c:	4a39      	ldr	r2, [pc, #228]	; (8000264 <button_reading+0x118>)
+ 800017c:	4a39      	ldr	r2, [pc, #228]	; (8000264 <Button_Reading+0x118>)
  800017e:	687b      	ldr	r3, [r7, #4]
  8000180:	f852 2023 	ldr.w	r2, [r2, r3, lsl #2]
- 8000184:	4938      	ldr	r1, [pc, #224]	; (8000268 <button_reading+0x11c>)
+ 8000184:	4938      	ldr	r1, [pc, #224]	; (8000268 <Button_Reading+0x11c>)
  8000186:	687b      	ldr	r3, [r7, #4]
  8000188:	f851 3023 	ldr.w	r3, [r1, r3, lsl #2]
  800018c:	b29b      	uxth	r3, r3
@@ -124,101 +124,101 @@ void button_reading(void)
  8000192:	f001 fcfd 	bl	8001b90 <HAL_GPIO_ReadPin>
  8000196:	4603      	mov	r3, r0
  8000198:	4619      	mov	r1, r3
- 800019a:	4a31      	ldr	r2, [pc, #196]	; (8000260 <button_reading+0x114>)
+ 800019a:	4a31      	ldr	r2, [pc, #196]	; (8000260 <Button_Reading+0x114>)
  800019c:	687b      	ldr	r3, [r7, #4]
  800019e:	4413      	add	r3, r2
  80001a0:	460a      	mov	r2, r1
  80001a2:	701a      	strb	r2, [r3, #0]
 		if(debounceButtonBuffer1[i] == debounceButtonBuffer2[i] && debounceButtonBuffer2[i] == debounceButtonBuffer3[i])
- 80001a4:	4a2e      	ldr	r2, [pc, #184]	; (8000260 <button_reading+0x114>)
+ 80001a4:	4a2e      	ldr	r2, [pc, #184]	; (8000260 <Button_Reading+0x114>)
  80001a6:	687b      	ldr	r3, [r7, #4]
  80001a8:	4413      	add	r3, r2
  80001aa:	781a      	ldrb	r2, [r3, #0]
- 80001ac:	492a      	ldr	r1, [pc, #168]	; (8000258 <button_reading+0x10c>)
+ 80001ac:	492a      	ldr	r1, [pc, #168]	; (8000258 <Button_Reading+0x10c>)
  80001ae:	687b      	ldr	r3, [r7, #4]
  80001b0:	440b      	add	r3, r1
  80001b2:	781b      	ldrb	r3, [r3, #0]
  80001b4:	429a      	cmp	r2, r3
- 80001b6:	d12d      	bne.n	8000214 <button_reading+0xc8>
- 80001b8:	4a27      	ldr	r2, [pc, #156]	; (8000258 <button_reading+0x10c>)
+ 80001b6:	d12d      	bne.n	8000214 <Button_Reading+0xc8>
+ 80001b8:	4a27      	ldr	r2, [pc, #156]	; (8000258 <Button_Reading+0x10c>)
  80001ba:	687b      	ldr	r3, [r7, #4]
  80001bc:	4413      	add	r3, r2
  80001be:	781a      	ldrb	r2, [r3, #0]
- 80001c0:	4926      	ldr	r1, [pc, #152]	; (800025c <button_reading+0x110>)
+ 80001c0:	4926      	ldr	r1, [pc, #152]	; (800025c <Button_Reading+0x110>)
  80001c2:	687b      	ldr	r3, [r7, #4]
  80001c4:	440b      	add	r3, r1
  80001c6:	781b      	ldrb	r3, [r3, #0]
  80001c8:	429a      	cmp	r2, r3
- 80001ca:	d123      	bne.n	8000214 <button_reading+0xc8>
+ 80001ca:	d123      	bne.n	8000214 <Button_Reading+0xc8>
 		{
 			if(debounceButtonBuffer1[i] != buttonBuffer[i])
- 80001cc:	4a24      	ldr	r2, [pc, #144]	; (8000260 <button_reading+0x114>)
+ 80001cc:	4a24      	ldr	r2, [pc, #144]	; (8000260 <Button_Reading+0x114>)
  80001ce:	687b      	ldr	r3, [r7, #4]
  80001d0:	4413      	add	r3, r2
  80001d2:	781a      	ldrb	r2, [r3, #0]
- 80001d4:	4925      	ldr	r1, [pc, #148]	; (800026c <button_reading+0x120>)
+ 80001d4:	4925      	ldr	r1, [pc, #148]	; (800026c <Button_Reading+0x120>)
  80001d6:	687b      	ldr	r3, [r7, #4]
  80001d8:	440b      	add	r3, r1
  80001da:	781b      	ldrb	r3, [r3, #0]
  80001dc:	429a      	cmp	r2, r3
- 80001de:	d02e      	beq.n	800023e <button_reading+0xf2>
+ 80001de:	d02e      	beq.n	800023e <Button_Reading+0xf2>
 			{
 				buttonBuffer[i] = debounceButtonBuffer1[i];
- 80001e0:	4a1f      	ldr	r2, [pc, #124]	; (8000260 <button_reading+0x114>)
+ 80001e0:	4a1f      	ldr	r2, [pc, #124]	; (8000260 <Button_Reading+0x114>)
  80001e2:	687b      	ldr	r3, [r7, #4]
  80001e4:	4413      	add	r3, r2
  80001e6:	7819      	ldrb	r1, [r3, #0]
- 80001e8:	4a20      	ldr	r2, [pc, #128]	; (800026c <button_reading+0x120>)
+ 80001e8:	4a20      	ldr	r2, [pc, #128]	; (800026c <Button_Reading+0x120>)
  80001ea:	687b      	ldr	r3, [r7, #4]
  80001ec:	4413      	add	r3, r2
  80001ee:	460a      	mov	r2, r1
  80001f0:	701a      	strb	r2, [r3, #0]
 						if(buttonBuffer[i] == BUTTON_IS_PRESSED)
- 80001f2:	4a1e      	ldr	r2, [pc, #120]	; (800026c <button_reading+0x120>)
+ 80001f2:	4a1e      	ldr	r2, [pc, #120]	; (800026c <Button_Reading+0x120>)
  80001f4:	687b      	ldr	r3, [r7, #4]
  80001f6:	4413      	add	r3, r2
  80001f8:	781b      	ldrb	r3, [r3, #0]
  80001fa:	2b00      	cmp	r3, #0
- 80001fc:	d11f      	bne.n	800023e <button_reading+0xf2>
+ 80001fc:	d11f      	bne.n	800023e <Button_Reading+0xf2>
 						{
 							buttonFlag[i] = 1;
- 80001fe:	4a1c      	ldr	r2, [pc, #112]	; (8000270 <button_reading+0x124>)
+ 80001fe:	4a1c      	ldr	r2, [pc, #112]	; (8000270 <Button_Reading+0x124>)
  8000200:	687b      	ldr	r3, [r7, #4]
  8000202:	2101      	movs	r1, #1
  8000204:	f842 1023 	str.w	r1, [r2, r3, lsl #2]
 							buttonTimeOut[i] = DURATION_FOR_AUTO_INCREASING;
- 8000208:	4a1a      	ldr	r2, [pc, #104]	; (8000274 <button_reading+0x128>)
+ 8000208:	4a1a      	ldr	r2, [pc, #104]	; (8000274 <Button_Reading+0x128>)
  800020a:	687b      	ldr	r3, [r7, #4]
  800020c:	2164      	movs	r1, #100	; 0x64
  800020e:	f842 1023 	str.w	r1, [r2, r3, lsl #2]
 			if(debounceButtonBuffer1[i] != buttonBuffer[i])
- 8000212:	e014      	b.n	800023e <button_reading+0xf2>
+ 8000212:	e014      	b.n	800023e <Button_Reading+0xf2>
 						}
 			}
 		}
 		else
 		{
 			buttonTimeOut[i]--;
- 8000214:	4a17      	ldr	r2, [pc, #92]	; (8000274 <button_reading+0x128>)
+ 8000214:	4a17      	ldr	r2, [pc, #92]	; (8000274 <Button_Reading+0x128>)
  8000216:	687b      	ldr	r3, [r7, #4]
  8000218:	f852 3023 	ldr.w	r3, [r2, r3, lsl #2]
  800021c:	1e5a      	subs	r2, r3, #1
- 800021e:	4915      	ldr	r1, [pc, #84]	; (8000274 <button_reading+0x128>)
+ 800021e:	4915      	ldr	r1, [pc, #84]	; (8000274 <Button_Reading+0x128>)
  8000220:	687b      	ldr	r3, [r7, #4]
  8000222:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
 				if(buttonTimeOut[i] <= 0)
- 8000226:	4a13      	ldr	r2, [pc, #76]	; (8000274 <button_reading+0x128>)
+ 8000226:	4a13      	ldr	r2, [pc, #76]	; (8000274 <Button_Reading+0x128>)
  8000228:	687b      	ldr	r3, [r7, #4]
  800022a:	f852 3023 	ldr.w	r3, [r2, r3, lsl #2]
  800022e:	2b00      	cmp	r3, #0
- 8000230:	dc06      	bgt.n	8000240 <button_reading+0xf4>
+ 8000230:	dc06      	bgt.n	8000240 <Button_Reading+0xf4>
 					buttonBuffer[i] = BUTTON_IS_RELEASED;
- 8000232:	4a0e      	ldr	r2, [pc, #56]	; (800026c <button_reading+0x120>)
+ 8000232:	4a0e      	ldr	r2, [pc, #56]	; (800026c <Button_Reading+0x120>)
  8000234:	687b      	ldr	r3, [r7, #4]
  8000236:	4413      	add	r3, r2
  8000238:	2201      	movs	r2, #1
  800023a:	701a      	strb	r2, [r3, #0]
- 800023c:	e000      	b.n	8000240 <button_reading+0xf4>
+ 800023c:	e000      	b.n	8000240 <Button_Reading+0xf4>
 			if(debounceButtonBuffer1[i] != buttonBuffer[i])
  800023e:	bf00      	nop
 	for(int i = 0; i < N0_OF_BUTTONS; i ++)
@@ -227,7 +227,7 @@ void button_reading(void)
  8000244:	607b      	str	r3, [r7, #4]
  8000246:	687b      	ldr	r3, [r7, #4]
  8000248:	2b03      	cmp	r3, #3
- 800024a:	dd85      	ble.n	8000158 <button_reading+0xc>
+ 800024a:	dd85      	ble.n	8000158 <Button_Reading+0xc>
 		}
 	}
 }
@@ -246,9 +246,9 @@ void button_reading(void)
  8000270:	200000dc 	.word	0x200000dc
  8000274:	200000c0 	.word	0x200000c0
 
-08000278 <is_button_pressed>:
+08000278 <Is_Button_Pressed>:
 
-int is_button_pressed(int index)
+int Is_Button_Pressed(int index)
 {
  8000278:	b480      	push	{r7}
  800027a:	b083      	sub	sp, #12
@@ -257,28 +257,28 @@ int is_button_pressed(int index)
 	if(index >= N0_OF_BUTTONS || index < 0)	return 0;
  8000280:	687b      	ldr	r3, [r7, #4]
  8000282:	2b03      	cmp	r3, #3
- 8000284:	dc02      	bgt.n	800028c <is_button_pressed+0x14>
+ 8000284:	dc02      	bgt.n	800028c <Is_Button_Pressed+0x14>
  8000286:	687b      	ldr	r3, [r7, #4]
  8000288:	2b00      	cmp	r3, #0
- 800028a:	da01      	bge.n	8000290 <is_button_pressed+0x18>
+ 800028a:	da01      	bge.n	8000290 <Is_Button_Pressed+0x18>
  800028c:	2300      	movs	r3, #0
- 800028e:	e00d      	b.n	80002ac <is_button_pressed+0x34>
+ 800028e:	e00d      	b.n	80002ac <Is_Button_Pressed+0x34>
 
 		if(buttonFlag[index] == 1)
- 8000290:	4a09      	ldr	r2, [pc, #36]	; (80002b8 <is_button_pressed+0x40>)
+ 8000290:	4a09      	ldr	r2, [pc, #36]	; (80002b8 <Is_Button_Pressed+0x40>)
  8000292:	687b      	ldr	r3, [r7, #4]
  8000294:	f852 3023 	ldr.w	r3, [r2, r3, lsl #2]
  8000298:	2b01      	cmp	r3, #1
- 800029a:	d106      	bne.n	80002aa <is_button_pressed+0x32>
+ 800029a:	d106      	bne.n	80002aa <Is_Button_Pressed+0x32>
 		{
 			buttonFlag[index] = 0;
- 800029c:	4a06      	ldr	r2, [pc, #24]	; (80002b8 <is_button_pressed+0x40>)
+ 800029c:	4a06      	ldr	r2, [pc, #24]	; (80002b8 <Is_Button_Pressed+0x40>)
  800029e:	687b      	ldr	r3, [r7, #4]
  80002a0:	2100      	movs	r1, #0
  80002a2:	f842 1023 	str.w	r1, [r2, r3, lsl #2]
 			return 1;
  80002a6:	2301      	movs	r3, #1
- 80002a8:	e000      	b.n	80002ac <is_button_pressed+0x34>
+ 80002a8:	e000      	b.n	80002ac <Is_Button_Pressed+0x34>
 		}
 		return 0;
  80002aa:	2300      	movs	r3, #0
@@ -1020,9 +1020,9 @@ void normalState(void)
  8000790:	6013      	str	r3, [r2, #0]
 		}
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
  8000792:	2001      	movs	r0, #1
- 8000794:	f7ff fd70 	bl	8000278 <is_button_pressed>
+ 8000794:	f7ff fd70 	bl	8000278 <Is_Button_Pressed>
  8000798:	4603      	mov	r3, r0
  800079a:	2b00      	cmp	r3, #0
  800079c:	d011      	beq.n	80007c2 <normalState+0x11e>
@@ -1052,9 +1052,9 @@ void normalState(void)
  80007bc:	2002      	movs	r0, #2
  80007be:	f000 fd69 	bl	8001294 <setTimer>
 		}
-		if(is_button_pressed(0))
+		if(Is_Button_Pressed(0))
  80007c2:	2000      	movs	r0, #0
- 80007c4:	f7ff fd58 	bl	8000278 <is_button_pressed>
+ 80007c4:	f7ff fd58 	bl	8000278 <Is_Button_Pressed>
  80007c8:	4603      	mov	r3, r0
  80007ca:	2b00      	cmp	r3, #0
  80007cc:	f000 825c 	beq.w	8000c88 <normalState+0x5e4>
@@ -1158,9 +1158,9 @@ void normalState(void)
  8000868:	6013      	str	r3, [r2, #0]
 		}
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
  800086a:	2001      	movs	r0, #1
- 800086c:	f7ff fd04 	bl	8000278 <is_button_pressed>
+ 800086c:	f7ff fd04 	bl	8000278 <Is_Button_Pressed>
  8000870:	4603      	mov	r3, r0
  8000872:	2b00      	cmp	r3, #0
  8000874:	d011      	beq.n	800089a <normalState+0x1f6>
@@ -1191,9 +1191,9 @@ void normalState(void)
  8000896:	f000 fcfd 	bl	8001294 <setTimer>
 		}
 
-		if(is_button_pressed(0))
+		if(Is_Button_Pressed(0))
  800089a:	2000      	movs	r0, #0
- 800089c:	f7ff fcec 	bl	8000278 <is_button_pressed>
+ 800089c:	f7ff fcec 	bl	8000278 <Is_Button_Pressed>
  80008a0:	4603      	mov	r3, r0
  80008a2:	2b00      	cmp	r3, #0
  80008a4:	f000 81f2 	beq.w	8000c8c <normalState+0x5e8>
@@ -1317,9 +1317,9 @@ void normalState(void)
  8000978:	4a7f      	ldr	r2, [pc, #508]	; (8000b78 <normalState+0x4d4>)
  800097a:	6013      	str	r3, [r2, #0]
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
  800097c:	2001      	movs	r0, #1
- 800097e:	f7ff fc7b 	bl	8000278 <is_button_pressed>
+ 800097e:	f7ff fc7b 	bl	8000278 <Is_Button_Pressed>
  8000982:	4603      	mov	r3, r0
  8000984:	2b00      	cmp	r3, #0
  8000986:	d011      	beq.n	80009ac <normalState+0x308>
@@ -1350,9 +1350,9 @@ void normalState(void)
  80009a8:	f000 fc74 	bl	8001294 <setTimer>
 		}
 
-		if(is_button_pressed(0))
+		if(Is_Button_Pressed(0))
  80009ac:	2000      	movs	r0, #0
- 80009ae:	f7ff fc63 	bl	8000278 <is_button_pressed>
+ 80009ae:	f7ff fc63 	bl	8000278 <Is_Button_Pressed>
  80009b2:	4603      	mov	r3, r0
  80009b4:	2b00      	cmp	r3, #0
  80009b6:	f000 816b 	beq.w	8000c90 <normalState+0x5ec>
@@ -1489,9 +1489,9 @@ void normalState(void)
  8000a8c:	6013      	str	r3, [r2, #0]
 		}
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
  8000a8e:	2001      	movs	r0, #1
- 8000a90:	f7ff fbf2 	bl	8000278 <is_button_pressed>
+ 8000a90:	f7ff fbf2 	bl	8000278 <Is_Button_Pressed>
  8000a94:	4603      	mov	r3, r0
  8000a96:	2b00      	cmp	r3, #0
  8000a98:	d011      	beq.n	8000abe <normalState+0x41a>
@@ -1522,9 +1522,9 @@ void normalState(void)
  8000aba:	f000 fbeb 	bl	8001294 <setTimer>
 		}
 
-		if(is_button_pressed(0))
+		if(Is_Button_Pressed(0))
  8000abe:	2000      	movs	r0, #0
- 8000ac0:	f7ff fbda 	bl	8000278 <is_button_pressed>
+ 8000ac0:	f7ff fbda 	bl	8000278 <Is_Button_Pressed>
  8000ac4:	4603      	mov	r3, r0
  8000ac6:	2b00      	cmp	r3, #0
  8000ac8:	f000 80e4 	beq.w	8000c94 <normalState+0x5f0>
@@ -1565,18 +1565,18 @@ void normalState(void)
  8000b00:	f7ff fc7c 	bl	80003fc <toggleRed>
 		}
 
-		if(is_button_pressed(2))
+		if(Is_Button_Pressed(2))
  8000b04:	2002      	movs	r0, #2
- 8000b06:	f7ff fbb7 	bl	8000278 <is_button_pressed>
+ 8000b06:	f7ff fbb7 	bl	8000278 <Is_Button_Pressed>
  8000b0a:	4603      	mov	r3, r0
  8000b0c:	2b00      	cmp	r3, #0
  8000b0e:	d001      	beq.n	8000b14 <normalState+0x470>
 			increase();
  8000b10:	f7ff fcea 	bl	80004e8 <increase>
 
-		if(is_button_pressed(3))
+		if(Is_Button_Pressed(3))
  8000b14:	2003      	movs	r0, #3
- 8000b16:	f7ff fbaf 	bl	8000278 <is_button_pressed>
+ 8000b16:	f7ff fbaf 	bl	8000278 <Is_Button_Pressed>
  8000b1a:	4603      	mov	r3, r0
  8000b1c:	2b00      	cmp	r3, #0
  8000b1e:	d008      	beq.n	8000b32 <normalState+0x48e>
@@ -1590,9 +1590,9 @@ void normalState(void)
  8000b2c:	4618      	mov	r0, r3
  8000b2e:	f7ff fcef 	bl	8000510 <balance>
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
  8000b32:	2001      	movs	r0, #1
- 8000b34:	f7ff fba0 	bl	8000278 <is_button_pressed>
+ 8000b34:	f7ff fba0 	bl	8000278 <Is_Button_Pressed>
  8000b38:	4603      	mov	r3, r0
  8000b3a:	2b00      	cmp	r3, #0
  8000b3c:	f000 80ac 	beq.w	8000c98 <normalState+0x5f4>
@@ -1651,18 +1651,18 @@ void normalState(void)
  8000b9c:	f7ff fc40 	bl	8000420 <toggleYellow>
 		}
 
-		if(is_button_pressed(2))
+		if(Is_Button_Pressed(2))
  8000ba0:	2002      	movs	r0, #2
- 8000ba2:	f7ff fb69 	bl	8000278 <is_button_pressed>
+ 8000ba2:	f7ff fb69 	bl	8000278 <Is_Button_Pressed>
  8000ba6:	4603      	mov	r3, r0
  8000ba8:	2b00      	cmp	r3, #0
  8000baa:	d001      	beq.n	8000bb0 <normalState+0x50c>
 			increase();
  8000bac:	f7ff fc9c 	bl	80004e8 <increase>
 
-		if(is_button_pressed(3))
+		if(Is_Button_Pressed(3))
  8000bb0:	2003      	movs	r0, #3
- 8000bb2:	f7ff fb61 	bl	8000278 <is_button_pressed>
+ 8000bb2:	f7ff fb61 	bl	8000278 <Is_Button_Pressed>
  8000bb6:	4603      	mov	r3, r0
  8000bb8:	2b00      	cmp	r3, #0
  8000bba:	d008      	beq.n	8000bce <normalState+0x52a>
@@ -1676,9 +1676,9 @@ void normalState(void)
  8000bc8:	4618      	mov	r0, r3
  8000bca:	f7ff fca1 	bl	8000510 <balance>
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
  8000bce:	2001      	movs	r0, #1
- 8000bd0:	f7ff fb52 	bl	8000278 <is_button_pressed>
+ 8000bd0:	f7ff fb52 	bl	8000278 <Is_Button_Pressed>
  8000bd4:	4603      	mov	r3, r0
  8000bd6:	2b00      	cmp	r3, #0
  8000bd8:	d060      	beq.n	8000c9c <normalState+0x5f8>
@@ -1728,18 +1728,18 @@ void normalState(void)
  8000c14:	f7ff fc1e 	bl	8000454 <toggleGreen>
 		}
 
-		if(is_button_pressed(2))
+		if(Is_Button_Pressed(2))
  8000c18:	2002      	movs	r0, #2
- 8000c1a:	f7ff fb2d 	bl	8000278 <is_button_pressed>
+ 8000c1a:	f7ff fb2d 	bl	8000278 <Is_Button_Pressed>
  8000c1e:	4603      	mov	r3, r0
  8000c20:	2b00      	cmp	r3, #0
  8000c22:	d001      	beq.n	8000c28 <normalState+0x584>
 			increase();
  8000c24:	f7ff fc60 	bl	80004e8 <increase>
 
-		if(is_button_pressed(3))
+		if(Is_Button_Pressed(3))
  8000c28:	2003      	movs	r0, #3
- 8000c2a:	f7ff fb25 	bl	8000278 <is_button_pressed>
+ 8000c2a:	f7ff fb25 	bl	8000278 <Is_Button_Pressed>
  8000c2e:	4603      	mov	r3, r0
  8000c30:	2b00      	cmp	r3, #0
  8000c32:	d008      	beq.n	8000c46 <normalState+0x5a2>
@@ -1753,9 +1753,9 @@ void normalState(void)
  8000c40:	4618      	mov	r0, r3
  8000c42:	f7ff fc65 	bl	8000510 <balance>
 
-		if(is_button_pressed(1))
+		if(Is_Button_Pressed(1))
  8000c46:	2001      	movs	r0, #1
- 8000c48:	f7ff fb16 	bl	8000278 <is_button_pressed>
+ 8000c48:	f7ff fb16 	bl	8000278 <Is_Button_Pressed>
  8000c4c:	4603      	mov	r3, r0
  8000c4e:	2b00      	cmp	r3, #0
  8000c50:	d026      	beq.n	8000ca0 <normalState+0x5fc>
@@ -1923,8 +1923,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  8000d3c:	f000 fac2 	bl	80012c4 <timerRun>
 	SCH_Update();
  8000d40:	f000 fa50 	bl	80011e4 <SCH_Update>
-	button_reading();
- 8000d44:	f7ff fa02 	bl	800014c <button_reading>
+	Button_Reading();
+ 8000d44:	f7ff fa02 	bl	800014c <Button_Reading>
 }
  8000d48:	bf00      	nop
  8000d4a:	3708      	adds	r7, #8

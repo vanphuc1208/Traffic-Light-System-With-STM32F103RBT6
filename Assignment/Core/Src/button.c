@@ -41,7 +41,7 @@ static GPIO_PinState debounceButtonBuffer3[N0_OF_BUTTONS];
 // After the button is pressed more than 1 second.
 
 int buttonFlag[N0_OF_BUTTONS] = {0};
-void button_reading(void)
+void Button_Reading(void)
 {
 	for(int i = 0; i < N0_OF_BUTTONS; i ++)
 	{
@@ -69,7 +69,7 @@ void button_reading(void)
 	}
 }
 
-int is_button_pressed(int index)
+int Is_Button_Pressed(int index)
 {
 	if(index >= N0_OF_BUTTONS || index < 0)	return 0;
 
