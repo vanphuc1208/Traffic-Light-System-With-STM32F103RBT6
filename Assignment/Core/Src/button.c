@@ -21,6 +21,7 @@
 
 // The buffer that the final result is stored after
 // Debouncing
+
 static GPIO_PinState buttonBuffer[N0_OF_BUTTONS]={BUTTON_IS_RELEASED,BUTTON_IS_RELEASED,BUTTON_IS_RELEASED};
 
 GPIO_TypeDef* buttonGPIO[N0_OF_BUTTONS]= {A0_GPIO_Port,A1_GPIO_Port,A2_GPIO_Port,A3_GPIO_Port };
@@ -79,5 +80,3 @@ int is_button_pressed(int index)
 		}
 		return 0;
 }
-
-
