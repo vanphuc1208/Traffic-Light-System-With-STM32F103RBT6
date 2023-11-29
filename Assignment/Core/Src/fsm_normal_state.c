@@ -159,8 +159,9 @@ void normalState(void)
 			time2--;
 		}
 
-		if(time1 <= 3)
-			buzzerValue=512*(4-time1);
+		if(timeYellow < 5 && time1 <= 5 - timeYellow) {
+				buzzerValue= 512*(5- timeYellow - time1);
+		}
 
 		if(is_button_pressed(1))
 		{
@@ -191,6 +192,14 @@ void normalState(void)
 			time2 = timeGreen;
 			if(pedestrian_flag == Pedestrian_GREEN)
 				pedestrian_flag = Pedestrian_RED;
+		}
+
+		if (timeYellow >=5 && time1 <=5) {
+			buzzerValue= 512*(5 - time1);
+		}
+
+		if(timeYellow < 5) {
+			buzzerValue+=256*(5 - time1);
 		}
 
 		if(IsTimerUp(1) == 1)
