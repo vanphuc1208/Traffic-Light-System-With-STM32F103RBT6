@@ -128,4 +128,5 @@ void SCH_Dispatch_Tasks(void)
 		if(NewTask.Period != 0)
 			SCH_Add_Task(NewTask.pTask, NewTask.Period, NewTask.Period);
 	}
+	 HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 }

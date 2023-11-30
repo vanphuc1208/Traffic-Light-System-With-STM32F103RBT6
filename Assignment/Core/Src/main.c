@@ -60,7 +60,7 @@ static void MX_TIM2_Init(void);
 /* USER CODE BEGIN 0 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	timerRun();
+	//timerRun();
 	SCH_Update();
 	Button_Reading();
 }
@@ -106,9 +106,10 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-// SCH_Add_Task(timerRun, 0, 1);
+ SCH_Add_Task(timerRun, 0, 1);
  SCH_Add_Task(normalState, 1, 1);
  SCH_Add_Task(fsm_pedestrian, 1, 1);
+
   while (1)
   {
     /* USER CODE END WHILE */
