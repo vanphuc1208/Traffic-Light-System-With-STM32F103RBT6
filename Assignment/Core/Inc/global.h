@@ -24,7 +24,7 @@
 #define GreenRed  	3
 #define AmberRed  	4
 
-#define TIMER	  	5
+#define TIMER	  	6
 
 #define ManRed		10
 #define ManAmber	11
@@ -47,5 +47,7 @@ extern int pedestrian_flag;
 extern TIM_HandleTypeDef htim3;
 
 extern int buzzerValue;
+
+extern int freq;
 
 #endif /* INC_GLOBAL_H_ */

@@ -9,6 +9,6 @@
 #define INC_BUZZER_H_
 #include "global.h"
 
-void buzzer();
+void buzzer(int duty_cylce);
 
 #endif /* INC_BUZZER_H_ */

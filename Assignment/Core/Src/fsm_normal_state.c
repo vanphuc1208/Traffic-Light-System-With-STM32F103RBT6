@@ -185,8 +185,15 @@ void normalState(void)
 			time2--;
 		}
 
+		if(timeYellow < 5 && time1 == 5 - timeYellow)
+		{
+			setTimer(4, 0);
+		}
+
 		if(timeYellow < 5 && time1 <= 5 - timeYellow)
-				buzzerValue = 512 * (5 - timeYellow - time1);
+		{
+			buzzerValue = 512 / 32 * (5 - timeYellow - time1);
+		}
 
 		if(Is_Button_Pressed(1))
 		{
@@ -227,11 +234,20 @@ void normalState(void)
 				pedestrian_flag = Pedestrian_RED;
 		}
 
+		if (timeYellow >= 5 && time1 == 5)
+		{
+			setTimer(4, 0);
+		}
+
 		if (timeYellow >= 5 && time1 <= 5)
-			buzzerValue = 512 * (5 - time1);
+		{
+			buzzerValue = 512 / 32 * (5 - time1);
+		}
 
 		if(timeYellow < 5)
-			buzzerValue += 256 * (5 - time1);
+		{
+			buzzerValue += 256 / 32 * (5 - time1);
+		}
 
 		if(isTimerUp(1) == 1)	// Update Time
 		{
