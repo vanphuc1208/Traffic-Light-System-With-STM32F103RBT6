@@ -20,3 +20,5 @@ int time1, time2 = 0;
 int pedestrian_flag = Pedestrian_INIT;
 
 int buzzerValue = 0;
+
+int freq = 30;
