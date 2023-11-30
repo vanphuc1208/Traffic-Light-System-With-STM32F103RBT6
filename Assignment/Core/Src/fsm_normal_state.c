@@ -56,55 +56,48 @@ void balance(int RED, int AMBER, int GREEN)
 
 void normalState(void)
 {
+	char str[50];
 	switch(status)
 	{
 	case INIT:
 		clearAllLed1();
 		clearAllLed2();
-
 		status = RedGreen;
-
 		setTimer(0, timeGreen * 100);
-		setTimer(1, 100);
-
+		setTimer(1, 1);
 		time1 = timeRed;
 		time2 = timeGreen;
-
 		break;
-
 	case RedGreen:
 		displayRed1();
 		displayGreen2();
 
-		if(isTimerUp(0) == 1)	// Transit State
-		{
-			status = RedAmber;
-
-			setTimer(0, timeYellow * 100);
+		if(isTimerUp(1) == 1)
+		{	// Update Time
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
 			setTimer(1, 100);
-
-			time1 = timeYellow;
-			time2 = timeYellow;
-		}
-
-		if(isTimerUp(1) == 1)	// Update Time
-		{
-			setTimer(1, 100);
-
 			time1--;
 			time2--;
 		}
 
+		if(isTimerUp(0) == 1)
+		{	// Transit State
+			status = RedAmber;
+			setTimer(0, timeYellow * 100);
+			setTimer(1, 1);
+			time1 = timeYellow;
+			time2 = timeYellow;
+		}
+
+
 		if(Is_Button_Pressed(1))
 		{
 			status = ManRed;
-
 			time1 = timeRed;
 			time2 = 2;
-
 			clearAllLed1();
 			clearAllLed2();
-
 			setTimer(2, 25);
 		}
 		if(Is_Button_Pressed(0))
@@ -114,43 +107,38 @@ void normalState(void)
 		}
 
 		break;
-
 	case RedAmber:
 		displayRed1();
 		displayYellow2();
 
-		if(isTimerUp(0)==1)		// Transit State
-		{
-			status = GreenRed;
-
-			setTimer(0, timeGreen * 100);
+		if(isTimerUp(1) == 1)
+		{	// Update Time
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+			time1--;
+			time2--;
 			setTimer(1, 100);
+		}
 
+		if(isTimerUp(0)==1)
+		{	// Transit State
+			status = GreenRed;
+			setTimer(0, timeGreen * 100);
+			setTimer(1, 1);
 			time1 = timeGreen;
 			time2 = timeRed;
-
 			if(pedestrian_flag == Pedestrian_RED)
 				pedestrian_flag = Pedestrian_GREEN;
 		}
 
-		if(isTimerUp(0) == 1)	// Update Time
-		{
-			setTimer(1, 100);
-
-			time1--;
-			time2--;
-		}
 
 		if(Is_Button_Pressed(1))
 		{
 			status = ManRed;
-
 			time1 = timeRed;
 			time2 = 2;
-
 			clearAllLed1();
 			clearAllLed2();
-
 			setTimer(2, 25);
 		}
 
@@ -161,28 +149,25 @@ void normalState(void)
 		}
 
 		break;
-
 	case GreenRed:
 		displayGreen1();
 		displayRed2();
-
-		if(isTimerUp(0) == 1)	// Transit State
-		{
-			status = AmberRed;
-
-			setTimer(0, timeYellow * 100);
+		if(isTimerUp(1)==1)
+		{	// Update Time
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
 			setTimer(1, 100);
-
-			time1 = timeYellow;
-			time2 = timeYellow;
-		}
-
-		if(isTimerUp(1)==1)		// Update Time
-		{
-			setTimer(1, 100);
-
 			time1--;
 			time2--;
+		}
+
+		if(isTimerUp(0) == 1)
+		{	// Transit State
+			status = AmberRed;
+			setTimer(0, timeYellow * 100);
+			setTimer(1, 1);
+			time1 = timeYellow;
+			time2 = timeYellow;
 		}
 
 		if(timeYellow < 5 && time1 == 5 - timeYellow)
@@ -190,21 +175,17 @@ void normalState(void)
 			setTimer(4, 0);
 		}
 
-		if(timeYellow < 5 && time1 <= 5 - timeYellow)
-		{
-			buzzerValue = 512 / 32 * (5 - timeYellow - time1);
+		if(timeYellow < 5 && time1 <= 5 - timeYellow) {
+				buzzerValue= 512*(5- timeYellow - time1);
 		}
 
 		if(Is_Button_Pressed(1))
 		{
 			status = ManRed;
-
 			time1 = timeRed;
 			time2 = 2;
-
 			clearAllLed1();
 			clearAllLed2();
-
 			setTimer(2, 25);
 		}
 
@@ -215,21 +196,25 @@ void normalState(void)
 		}
 
 		break;
-
 	case AmberRed:
 		displayYellow1();
 		displayRed2();
-
-		if(isTimerUp(0) == 1)	// Transit State
-		{
-			status = RedGreen;
-
-			setTimer(0, timeGreen * 100);
+		if(isTimerUp(1) == 1)
+		{	// Update Time
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+			time1--;
+			time2--;
 			setTimer(1, 100);
+		}
 
+		if(isTimerUp(0) == 1)
+		{	// Transit State
+			status = RedGreen;
+			setTimer(0, timeGreen * 100);
+			setTimer(1, 1);
 			time1 = timeRed;
 			time2 = timeGreen;
-
 			if(pedestrian_flag == Pedestrian_GREEN)
 				pedestrian_flag = Pedestrian_RED;
 		}
@@ -239,34 +224,22 @@ void normalState(void)
 			setTimer(4, 0);
 		}
 
-		if (timeYellow >= 5 && time1 <= 5)
-		{
-			buzzerValue = 512 / 32 * (5 - time1);
+		if (timeYellow >=5 && time1 <=5) {
+			buzzerValue= 512*(5 - time1);
 		}
 
-		if(timeYellow < 5)
-		{
-			buzzerValue += 256 / 32 * (5 - time1);
+		if(timeYellow < 5) {
+			buzzerValue+=256*(5 - time1);
 		}
 
-		if(isTimerUp(1) == 1)	// Update Time
-		{
-			setTimer(1, 100);
-
-			time1--;
-			time2--;
-		}
 
 		if(Is_Button_Pressed(1))
 		{
 			status = ManRed;
-
 			time1 = timeRed;
 			time2 = 2;
-
 			clearAllLed1();
 			clearAllLed2();
-
 			setTimer(2, 25);
 		}
 
@@ -277,14 +250,12 @@ void normalState(void)
 		}
 
 		break;
-
 	case ManRed:
 		if(isTimerUp(2) == 1)
 		{
 			setTimer(2, 25);
 			toggleRed();
 		}
-
 		if(Is_Button_Pressed(2))
 			increase();
 
@@ -294,25 +265,21 @@ void normalState(void)
 		if(Is_Button_Pressed(1))
 		{
 			status = ManAmber;
-
 			time1 = timeYellow;
 			time2 = 3;
-
 			clearAllLed1();
 			clearAllLed2();
-
 			setTimer(2, 25);
 		}
-
+		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
 		break;
-
 	case ManAmber:
 		if(isTimerUp(2) == 1)
 		{
 			setTimer(2, 25);
 			toggleYellow();
 		}
-
 		if(Is_Button_Pressed(2))
 			increase();
 
@@ -322,25 +289,21 @@ void normalState(void)
 		if(Is_Button_Pressed(1))
 		{
 			status = ManGreen;
-
 			time1 = timeGreen;
 			time2 = 4;
-
 			clearAllLed1();
 			clearAllLed2();
-
 			setTimer(2, 25);
 		}
-
+		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
 		break;
-
 	case ManGreen:
 		if(isTimerUp(2) == 1)
 		{
 			setTimer(2, 25);
 			toggleGreen();
 		}
-
 		if(Is_Button_Pressed(2))
 			increase();
 
@@ -350,16 +313,14 @@ void normalState(void)
 		if(Is_Button_Pressed(1))
 		{
 			status = RedGreen;
-
 			setTimer(0, timeGreen * 100);
-			setTimer(1, 100);
-
+			setTimer(1, 1);
 			time1 = timeRed;
 			time2 = timeGreen;
 		}
-
+		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
 		break;
-
 	default:
 		break;
 	}

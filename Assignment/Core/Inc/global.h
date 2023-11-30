@@ -50,4 +50,6 @@ extern int buzzerValue;
 
 extern int freq;
 
+extern UART_HandleTypeDef huart2;
+
 #endif /* INC_GLOBAL_H_ */
