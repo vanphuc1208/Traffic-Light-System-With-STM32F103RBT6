@@ -41,5 +41,5 @@ extern int time1,time2;
 extern int pedestrian_flag;
 extern TIM_HandleTypeDef htim3;
 extern int buzzerValue;
-
+extern UART_HandleTypeDef huart2;
 #endif /* INC_GLOBAL_H_ */
