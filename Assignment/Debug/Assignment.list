@@ -2958,47 +2958,72 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 	...
 
 080014f8 <AddNode>:
+{
+	head = NULL;
+}
+
+void AddNode(sTask NewTask)
+{
  80014f8:	b590      	push	{r4, r7, lr}
  80014fa:	b087      	sub	sp, #28
  80014fc:	af00      	add	r7, sp, #0
  80014fe:	463c      	mov	r4, r7
  8001500:	e884 000f 	stmia.w	r4, {r0, r1, r2, r3}
+	struct Node* NewNode = (struct Node*)malloc(sizeof(struct Node));
  8001504:	2014      	movs	r0, #20
  8001506:	f003 f8af 	bl	8004668 <malloc>
  800150a:	4603      	mov	r3, r0
  800150c:	613b      	str	r3, [r7, #16]
+	NewNode -> data.pTask = NewTask.pTask;
  800150e:	683a      	ldr	r2, [r7, #0]
  8001510:	693b      	ldr	r3, [r7, #16]
  8001512:	601a      	str	r2, [r3, #0]
+	NewNode -> data.Delay = NewTask.Delay;
  8001514:	687a      	ldr	r2, [r7, #4]
  8001516:	693b      	ldr	r3, [r7, #16]
  8001518:	605a      	str	r2, [r3, #4]
+	NewNode -> data.Period = NewTask.Period;
  800151a:	68ba      	ldr	r2, [r7, #8]
  800151c:	693b      	ldr	r3, [r7, #16]
  800151e:	609a      	str	r2, [r3, #8]
+	NewNode -> data.RunMe = NewTask.RunMe;
  8001520:	7b3a      	ldrb	r2, [r7, #12]
  8001522:	693b      	ldr	r3, [r7, #16]
  8001524:	731a      	strb	r2, [r3, #12]
+	NewNode -> next = NULL;
  8001526:	693b      	ldr	r3, [r7, #16]
  8001528:	2200      	movs	r2, #0
  800152a:	611a      	str	r2, [r3, #16]
+
+	// List is empty, just addNode
+	if(head == NULL)
  800152c:	4b2b      	ldr	r3, [pc, #172]	; (80015dc <AddNode+0xe4>)
  800152e:	681b      	ldr	r3, [r3, #0]
  8001530:	2b00      	cmp	r3, #0
  8001532:	d103      	bne.n	800153c <AddNode+0x44>
+	{
+		head = NewNode;
  8001534:	4a29      	ldr	r2, [pc, #164]	; (80015dc <AddNode+0xe4>)
  8001536:	693b      	ldr	r3, [r7, #16]
  8001538:	6013      	str	r3, [r2, #0]
+		return;
  800153a:	e04c      	b.n	80015d6 <AddNode+0xde>
+	}
+	struct Node* temp = head;
  800153c:	4b27      	ldr	r3, [pc, #156]	; (80015dc <AddNode+0xe4>)
  800153e:	681b      	ldr	r3, [r3, #0]
  8001540:	617b      	str	r3, [r7, #20]
+
+	// If the list has A5 B3 C2 Adding D3  ->  D3 A2 B3 C2
+	if(NewNode -> data.Delay < temp -> data.Delay )
  8001542:	693b      	ldr	r3, [r7, #16]
  8001544:	685a      	ldr	r2, [r3, #4]
  8001546:	697b      	ldr	r3, [r7, #20]
  8001548:	685b      	ldr	r3, [r3, #4]
  800154a:	429a      	cmp	r2, r3
  800154c:	d21e      	bcs.n	800158c <AddNode+0x94>
+	{
+		temp -> data.Delay -= NewNode -> data.Delay;
  800154e:	697b      	ldr	r3, [r7, #20]
  8001550:	685a      	ldr	r2, [r3, #4]
  8001552:	693b      	ldr	r3, [r7, #16]
@@ -3006,13 +3031,22 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  8001556:	1ad2      	subs	r2, r2, r3
  8001558:	697b      	ldr	r3, [r7, #20]
  800155a:	605a      	str	r2, [r3, #4]
+		NewNode -> next = temp;
  800155c:	693b      	ldr	r3, [r7, #16]
  800155e:	697a      	ldr	r2, [r7, #20]
  8001560:	611a      	str	r2, [r3, #16]
+		head = NewNode;
  8001562:	4a1e      	ldr	r2, [pc, #120]	; (80015dc <AddNode+0xe4>)
  8001564:	693b      	ldr	r3, [r7, #16]
  8001566:	6013      	str	r3, [r2, #0]
+		return;
  8001568:	e035      	b.n	80015d6 <AddNode+0xde>
+	}
+
+	// If the list has A5 B3 C2 Adding D9  ->  A5 B3 D1 C1
+	while(temp -> next != NULL)
+	{
+		NewNode -> data.Delay -= temp -> data.Delay;
  800156a:	693b      	ldr	r3, [r7, #16]
  800156c:	685a      	ldr	r2, [r3, #4]
  800156e:	697b      	ldr	r3, [r7, #20]
@@ -3020,6 +3054,7 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  8001572:	1ad2      	subs	r2, r2, r3
  8001574:	693b      	ldr	r3, [r7, #16]
  8001576:	605a      	str	r2, [r3, #4]
+		if(NewNode -> data.Delay <= temp -> next -> data.Delay)
  8001578:	693b      	ldr	r3, [r7, #16]
  800157a:	685a      	ldr	r2, [r3, #4]
  800157c:	697b      	ldr	r3, [r7, #20]
@@ -3027,19 +3062,30 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  8001580:	685b      	ldr	r3, [r3, #4]
  8001582:	429a      	cmp	r2, r3
  8001584:	d907      	bls.n	8001596 <AddNode+0x9e>
+			break;
+
+		temp = temp -> next;
  8001586:	697b      	ldr	r3, [r7, #20]
  8001588:	691b      	ldr	r3, [r3, #16]
  800158a:	617b      	str	r3, [r7, #20]
+	while(temp -> next != NULL)
  800158c:	697b      	ldr	r3, [r7, #20]
  800158e:	691b      	ldr	r3, [r3, #16]
  8001590:	2b00      	cmp	r3, #0
  8001592:	d1ea      	bne.n	800156a <AddNode+0x72>
  8001594:	e000      	b.n	8001598 <AddNode+0xa0>
+			break;
  8001596:	bf00      	nop
+	}
+
+	// temp current in B3 and D become D1
+	if(temp -> next == NULL)
  8001598:	697b      	ldr	r3, [r7, #20]
  800159a:	691b      	ldr	r3, [r3, #16]
  800159c:	2b00      	cmp	r3, #0
  800159e:	d10a      	bne.n	80015b6 <AddNode+0xbe>
+	{
+		NewNode -> data.Delay -= temp -> data.Delay;
  80015a0:	693b      	ldr	r3, [r7, #16]
  80015a2:	685a      	ldr	r2, [r3, #4]
  80015a4:	697b      	ldr	r3, [r7, #20]
@@ -3047,10 +3093,15 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  80015a8:	1ad2      	subs	r2, r2, r3
  80015aa:	693b      	ldr	r3, [r7, #16]
  80015ac:	605a      	str	r2, [r3, #4]
+		temp -> next = NewNode;
  80015ae:	697b      	ldr	r3, [r7, #20]
  80015b0:	693a      	ldr	r2, [r7, #16]
  80015b2:	611a      	str	r2, [r3, #16]
  80015b4:	e00f      	b.n	80015d6 <AddNode+0xde>
+	}
+	else
+	{
+		temp -> next -> data.Delay -= NewNode -> data.Delay; // convert C2 to C1
  80015b6:	697b      	ldr	r3, [r7, #20]
  80015b8:	691b      	ldr	r3, [r3, #16]
  80015ba:	6859      	ldr	r1, [r3, #4]
@@ -3060,66 +3111,94 @@ __STATIC_FORCEINLINE void __disable_irq(void)
  80015c2:	691b      	ldr	r3, [r3, #16]
  80015c4:	1a8a      	subs	r2, r1, r2
  80015c6:	605a      	str	r2, [r3, #4]
+		NewNode -> next = temp -> next;
  80015c8:	697b      	ldr	r3, [r7, #20]
  80015ca:	691a      	ldr	r2, [r3, #16]
  80015cc:	693b      	ldr	r3, [r7, #16]
  80015ce:	611a      	str	r2, [r3, #16]
+		temp -> next = NewNode;
  80015d0:	697b      	ldr	r3, [r7, #20]
  80015d2:	693a      	ldr	r2, [r7, #16]
  80015d4:	611a      	str	r2, [r3, #16]
+	}
+}
  80015d6:	371c      	adds	r7, #28
  80015d8:	46bd      	mov	sp, r7
  80015da:	bd90      	pop	{r4, r7, pc}
  80015dc:	20000128 	.word	0x20000128
 
 080015e0 <DeleteBegin>:
+
+void DeleteBegin()
+{
  80015e0:	b580      	push	{r7, lr}
  80015e2:	b082      	sub	sp, #8
  80015e4:	af00      	add	r7, sp, #0
+	struct Node* temp = head;
  80015e6:	4b09      	ldr	r3, [pc, #36]	; (800160c <DeleteBegin+0x2c>)
  80015e8:	681b      	ldr	r3, [r3, #0]
  80015ea:	607b      	str	r3, [r7, #4]
+	if(temp == NULL) return;
  80015ec:	687b      	ldr	r3, [r7, #4]
  80015ee:	2b00      	cmp	r3, #0
  80015f0:	d008      	beq.n	8001604 <DeleteBegin+0x24>
+	head = head -> next;
  80015f2:	4b06      	ldr	r3, [pc, #24]	; (800160c <DeleteBegin+0x2c>)
  80015f4:	681b      	ldr	r3, [r3, #0]
  80015f6:	691b      	ldr	r3, [r3, #16]
  80015f8:	4a04      	ldr	r2, [pc, #16]	; (800160c <DeleteBegin+0x2c>)
  80015fa:	6013      	str	r3, [r2, #0]
+	free(temp);
  80015fc:	6878      	ldr	r0, [r7, #4]
  80015fe:	f003 f83b 	bl	8004678 <free>
  8001602:	e000      	b.n	8001606 <DeleteBegin+0x26>
+	if(temp == NULL) return;
  8001604:	bf00      	nop
+}
  8001606:	3708      	adds	r7, #8
  8001608:	46bd      	mov	sp, r7
  800160a:	bd80      	pop	{r7, pc}
  800160c:	20000128 	.word	0x20000128
 
 08001610 <SCH_Add_Task>:
+
+void SCH_Add_Task(void (*p_function)(), uint32_t DELAY, uint32_t PERIOD)
+{
  8001610:	b580      	push	{r7, lr}
  8001612:	b088      	sub	sp, #32
  8001614:	af00      	add	r7, sp, #0
  8001616:	60f8      	str	r0, [r7, #12]
  8001618:	60b9      	str	r1, [r7, #8]
  800161a:	607a      	str	r2, [r7, #4]
+	sTask NewTask;
+	NewTask.pTask = p_function;
  800161c:	68fb      	ldr	r3, [r7, #12]
  800161e:	613b      	str	r3, [r7, #16]
+	NewTask.Delay = DELAY;
  8001620:	68bb      	ldr	r3, [r7, #8]
  8001622:	617b      	str	r3, [r7, #20]
+	NewTask.Period = PERIOD;
  8001624:	687b      	ldr	r3, [r7, #4]
  8001626:	61bb      	str	r3, [r7, #24]
+
+	if(NewTask.Delay == 0)
  8001628:	697b      	ldr	r3, [r7, #20]
  800162a:	2b00      	cmp	r3, #0
  800162c:	d102      	bne.n	8001634 <SCH_Add_Task+0x24>
+		NewTask.RunMe = 1;
  800162e:	2301      	movs	r3, #1
  8001630:	773b      	strb	r3, [r7, #28]
  8001632:	e001      	b.n	8001638 <SCH_Add_Task+0x28>
+	else
+		NewTask.RunMe = 0;
  8001634:	2300      	movs	r3, #0
  8001636:	773b      	strb	r3, [r7, #28]
+
+	AddNode(NewTask);
  8001638:	f107 0310 	add.w	r3, r7, #16
  800163c:	cb0f      	ldmia	r3, {r0, r1, r2, r3}
  800163e:	f7ff ff5b 	bl	80014f8 <AddNode>
+}
  8001642:	bf00      	nop
  8001644:	3720      	adds	r7, #32
  8001646:	46bd      	mov	sp, r7
@@ -3127,70 +3206,100 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 	...
 
 0800164c <SCH_Update>:
+
+void SCH_Update(void)
+{
  800164c:	b480      	push	{r7}
  800164e:	af00      	add	r7, sp, #0
+	if(head == NULL) return;
  8001650:	4b0b      	ldr	r3, [pc, #44]	; (8001680 <SCH_Update+0x34>)
  8001652:	681b      	ldr	r3, [r3, #0]
  8001654:	2b00      	cmp	r3, #0
  8001656:	d00f      	beq.n	8001678 <SCH_Update+0x2c>
+
+	if(head -> data.Delay <= 0)
  8001658:	4b09      	ldr	r3, [pc, #36]	; (8001680 <SCH_Update+0x34>)
  800165a:	681b      	ldr	r3, [r3, #0]
  800165c:	685b      	ldr	r3, [r3, #4]
  800165e:	2b00      	cmp	r3, #0
  8001660:	d104      	bne.n	800166c <SCH_Update+0x20>
+		head -> data.RunMe = 1;
  8001662:	4b07      	ldr	r3, [pc, #28]	; (8001680 <SCH_Update+0x34>)
  8001664:	681b      	ldr	r3, [r3, #0]
  8001666:	2201      	movs	r2, #1
  8001668:	731a      	strb	r2, [r3, #12]
  800166a:	e006      	b.n	800167a <SCH_Update+0x2e>
+	else
+		head -> data.Delay--;
  800166c:	4b04      	ldr	r3, [pc, #16]	; (8001680 <SCH_Update+0x34>)
  800166e:	681b      	ldr	r3, [r3, #0]
  8001670:	685a      	ldr	r2, [r3, #4]
  8001672:	3a01      	subs	r2, #1
  8001674:	605a      	str	r2, [r3, #4]
  8001676:	e000      	b.n	800167a <SCH_Update+0x2e>
+	if(head == NULL) return;
  8001678:	bf00      	nop
+}
  800167a:	46bd      	mov	sp, r7
  800167c:	bc80      	pop	{r7}
  800167e:	4770      	bx	lr
  8001680:	20000128 	.word	0x20000128
 
 08001684 <SCH_Dispatch_Tasks>:
+
+void SCH_Dispatch_Tasks(void)
+{
  8001684:	b590      	push	{r4, r7, lr}
  8001686:	b085      	sub	sp, #20
  8001688:	af00      	add	r7, sp, #0
+	if(head == NULL) return;
  800168a:	4b13      	ldr	r3, [pc, #76]	; (80016d8 <SCH_Dispatch_Tasks+0x54>)
  800168c:	681b      	ldr	r3, [r3, #0]
  800168e:	2b00      	cmp	r3, #0
  8001690:	d01e      	beq.n	80016d0 <SCH_Dispatch_Tasks+0x4c>
+
+	if(head -> data.RunMe > 0)
  8001692:	4b11      	ldr	r3, [pc, #68]	; (80016d8 <SCH_Dispatch_Tasks+0x54>)
  8001694:	681b      	ldr	r3, [r3, #0]
  8001696:	7b1b      	ldrb	r3, [r3, #12]
  8001698:	2b00      	cmp	r3, #0
  800169a:	d014      	beq.n	80016c6 <SCH_Dispatch_Tasks+0x42>
+	{
+		(*head -> data.pTask)();
  800169c:	4b0e      	ldr	r3, [pc, #56]	; (80016d8 <SCH_Dispatch_Tasks+0x54>)
  800169e:	681b      	ldr	r3, [r3, #0]
  80016a0:	681b      	ldr	r3, [r3, #0]
  80016a2:	4798      	blx	r3
+		sTask NewTask = head -> data;
  80016a4:	4b0c      	ldr	r3, [pc, #48]	; (80016d8 <SCH_Dispatch_Tasks+0x54>)
  80016a6:	681b      	ldr	r3, [r3, #0]
  80016a8:	463c      	mov	r4, r7
  80016aa:	cb0f      	ldmia	r3, {r0, r1, r2, r3}
  80016ac:	e884 000f 	stmia.w	r4, {r0, r1, r2, r3}
+		DeleteBegin();
  80016b0:	f7ff ff96 	bl	80015e0 <DeleteBegin>
+
+		if(NewTask.Period != 0)
  80016b4:	68bb      	ldr	r3, [r7, #8]
  80016b6:	2b00      	cmp	r3, #0
  80016b8:	d005      	beq.n	80016c6 <SCH_Dispatch_Tasks+0x42>
+			SCH_Add_Task(NewTask.pTask, NewTask.Period, NewTask.Period);
  80016ba:	683b      	ldr	r3, [r7, #0]
  80016bc:	68b9      	ldr	r1, [r7, #8]
  80016be:	68ba      	ldr	r2, [r7, #8]
  80016c0:	4618      	mov	r0, r3
  80016c2:	f7ff ffa5 	bl	8001610 <SCH_Add_Task>
+	}
+
+	// Enter low-power mode (Sleep mode). The MCU will wake up on the next interrupt
+	HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
  80016c6:	2101      	movs	r1, #1
  80016c8:	2000      	movs	r0, #0
  80016ca:	f000 fdef 	bl	80022ac <HAL_PWR_EnterSLEEPMode>
  80016ce:	e000      	b.n	80016d2 <SCH_Dispatch_Tasks+0x4e>
+	if(head == NULL) return;
  80016d0:	bf00      	nop
+}
  80016d2:	3714      	adds	r7, #20
  80016d4:	46bd      	mov	sp, r7
  80016d6:	bd90      	pop	{r4, r7, pc}

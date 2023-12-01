@@ -4141,7 +4141,7 @@ LOAD c:/st/stm32cubeide_1.7.0/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_str     0x0000000000083f12      0x355 ./Core/Src/main.o
                                       0x84378 (size before relaxing)
  .debug_str     0x0000000000084267     0x41bf ./Core/Src/scheduler.o
-                                      0x87a23 (size before relaxing)
+                                      0x879fe (size before relaxing)
  .debug_str     0x0000000000088426       0x61 ./Core/Src/software_timer.o
                                       0x84045 (size before relaxing)
  .debug_str     0x0000000000088487      0x332 ./Core/Src/stm32f1xx_hal_msp.o

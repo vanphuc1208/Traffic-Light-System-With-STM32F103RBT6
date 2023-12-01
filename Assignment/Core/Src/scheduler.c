@@ -129,5 +129,6 @@ void SCH_Dispatch_Tasks(void)
 			SCH_Add_Task(NewTask.pTask, NewTask.Period, NewTask.Period);
 	}
 
-	 HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+	// Enter low-power mode (Sleep mode). The MCU will wake up on the next interrupt
+	HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 }
