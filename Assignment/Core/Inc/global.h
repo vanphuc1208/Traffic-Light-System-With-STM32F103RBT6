@@ -24,7 +24,7 @@
 #define GreenRed  	3
 #define AmberRed  	4
 
-#define TIMER	  	6
+#define TIMER	  	7
 
 #define ManRed		10
 #define ManAmber	11
