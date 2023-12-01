@@ -60,8 +60,6 @@ void normalState(void)
 	switch(status)
 	{
 	case INIT:
-		clearAllLed1();
-		clearAllLed2();
 		status = RedGreen;
 		setTimer(0, timeGreen * 100);
 		setTimer(1, 1);
@@ -71,7 +69,6 @@ void normalState(void)
 	case RedGreen:
 		displayRed1();
 		displayGreen2();
-
 		if(isTimerUp(1) == 1)
 		{	// Update Time
 			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
