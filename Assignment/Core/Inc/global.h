@@ -24,15 +24,15 @@
 #define GreenRed  	3
 #define AmberRed  	4
 
-#define TIMER	  	7
+#define TIMER	  	8
 
 #define ManRed		10
 #define ManAmber	11
 #define ManGreen	12
 
-#define Pedestrian_INIT 	7
-#define Pedestrian_RED		8
-#define Pedestrian_GREEN	9
+#define Pedestrian_INIT 	14
+#define Pedestrian_RED		15
+#define Pedestrian_GREEN	16
 
 extern int timeRed;
 extern int timeYellow;
@@ -48,7 +48,11 @@ extern TIM_HandleTypeDef htim3;
 
 extern int buzzerValue;
 
-extern int freq;
+extern int frequency;
+
+extern int frequency1;
+
+extern int freq[10];
 
 extern UART_HandleTypeDef huart2;
 

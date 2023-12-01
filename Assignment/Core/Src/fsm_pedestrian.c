@@ -12,22 +12,25 @@ void fsm_pedestrian(void)
 	switch(pedestrian_flag)
 	{
 		case Pedestrian_INIT:
-			clearPedestrian();
-
 			buzzer(0);
+
+			clearPedestrian();
 			break;
 
 		case Pedestrian_RED:
-			freq = 30;
+			buzzer(0);
+
+			frequency = -1;
+			frequency1 = 0;
+
 			if(isTimerUp(3) == 1)
 				pedestrian_flag = Pedestrian_INIT;
 
 			displayPedestrianRed();
-
-			buzzer(0);
 			break;
 
 		case Pedestrian_GREEN:
+
 			if(isTimerUp(3) == 1)
 				pedestrian_flag = Pedestrian_INIT;
 
@@ -35,15 +38,38 @@ void fsm_pedestrian(void)
 
 			if(isTimerUp(4) == 1)
 			{
-				setTimer(5, freq);
-				setTimer(4, 100);
-				freq += 10;
+				frequency1 = 0;
+				frequency += 1;
+				setTimer(4, 50);
+				setTimer(5, freq[frequency]);
+				setTimer(6, 5);
 			}
-			if(isTimerUp(5) == 0)
-				buzzer(buzzerValue);
-			if(isTimerUp(5) == 1)
-				buzzer(0);
 
+			if(frequency1 == 0)
+			{
+				if(isTimerUp(6) == 1)
+				{
+					buzzer(0);
+					setTimer(5, freq[frequency]);
+					frequency1++;
+				}
+				else
+					buzzer(buzzerValue);
+			}
+			else if(frequency1 == 1)
+			{
+				if(isTimerUp(5) == 1)
+				{
+					buzzer(buzzerValue);
+					setTimer(6, 5);
+					frequency1 = 0;
+				}
+				else
+					buzzer(0);
+			}
+			break;
+
+		default:
 			break;
 	}
 }

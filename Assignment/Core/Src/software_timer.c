@@ -20,6 +20,7 @@ void setTimer(int timer, int duration)
 	timer_counter[timer] = duration;
 	timer_flag[timer] = 0;
 }
+
 void timerRun(void)
 {
 	for (int timer = 0; timer < TIMER; timer++)

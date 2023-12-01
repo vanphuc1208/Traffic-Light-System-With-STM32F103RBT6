@@ -21,4 +21,8 @@ int pedestrian_flag = Pedestrian_INIT;
 
 int buzzerValue = 0;
 
-int freq = 30;
+int frequency = -1; // Array delay
+
+int frequency1 = 0; // Off duty-cycle
+
+int freq[10] = {30, 25, 20, 15, 10, 5, 4, 3, 2, 1};
