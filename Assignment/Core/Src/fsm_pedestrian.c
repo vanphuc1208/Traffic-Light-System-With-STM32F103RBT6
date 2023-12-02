@@ -38,14 +38,14 @@ void fsm_pedestrian(void)
 
 			if(isTimerUp(4) == 1)
 			{
-				frequency1 = 0;
+				frequency1 = 1;
 				frequency += 1;
 				setTimer(4, 50);
 				setTimer(5, freq[frequency]);
 				setTimer(6, 5);
 			}
 
-			if(frequency1 == 0)
+			if(frequency1 == 1)
 			{
 				if(isTimerUp(6) == 1)
 				{
@@ -56,7 +56,7 @@ void fsm_pedestrian(void)
 				else
 					buzzer(buzzerValue);
 			}
-			else if(frequency1 == 1)
+			else if(frequency1 == 2)
 			{
 				if(isTimerUp(5) == 1)
 				{

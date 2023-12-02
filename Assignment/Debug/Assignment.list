@@ -2164,9 +2164,9 @@ void fsm_pedestrian(void)
  8001074:	4603      	mov	r3, r0
  8001076:	2b01      	cmp	r3, #1
  8001078:	d118      	bne.n	80010ac <fsm_pedestrian+0xa8>
-				frequency1 = 0;
+				frequency1 = 1;
  800107a:	4b2f      	ldr	r3, [pc, #188]	; (8001138 <fsm_pedestrian+0x134>)
- 800107c:	2200      	movs	r2, #0
+ 800107c:	2201      	movs	r2, #1
  800107e:	601a      	str	r2, [r3, #0]
 				frequency += 1;
  8001080:	4b2c      	ldr	r3, [pc, #176]	; (8001134 <fsm_pedestrian+0x130>)
@@ -2190,10 +2190,10 @@ void fsm_pedestrian(void)
  80010a4:	2105      	movs	r1, #5
  80010a6:	2006      	movs	r0, #6
  80010a8:	f000 fb2c 	bl	8001704 <setTimer>
-			if(frequency1 == 0)
+			if(frequency1 == 1)
  80010ac:	4b22      	ldr	r3, [pc, #136]	; (8001138 <fsm_pedestrian+0x134>)
  80010ae:	681b      	ldr	r3, [r3, #0]
- 80010b0:	2b00      	cmp	r3, #0
+ 80010b0:	2b01      	cmp	r3, #1
  80010b2:	d11d      	bne.n	80010f0 <fsm_pedestrian+0xec>
 				if(isTimerUp(6) == 1)
  80010b4:	2006      	movs	r0, #6
@@ -2227,10 +2227,10 @@ void fsm_pedestrian(void)
  80010ea:	f7ff f8e7 	bl	80002bc <buzzer>
 			break;
  80010ee:	e01c      	b.n	800112a <fsm_pedestrian+0x126>
-			else if(frequency1 == 1)
+			else if(frequency1 == 2)
  80010f0:	4b11      	ldr	r3, [pc, #68]	; (8001138 <fsm_pedestrian+0x134>)
  80010f2:	681b      	ldr	r3, [r3, #0]
- 80010f4:	2b01      	cmp	r3, #1
+ 80010f4:	2b02      	cmp	r3, #2
  80010f6:	d118      	bne.n	800112a <fsm_pedestrian+0x126>
 				if(isTimerUp(5) == 1)
  80010f8:	2005      	movs	r0, #5
