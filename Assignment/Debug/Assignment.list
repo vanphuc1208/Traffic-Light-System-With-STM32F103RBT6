@@ -2247,9 +2247,9 @@ void fsm_pedestrian(void)
  800110e:	2105      	movs	r1, #5
  8001110:	2006      	movs	r0, #6
  8001112:	f000 faf7 	bl	8001704 <setTimer>
-					frequency1 = 0;
+					frequency1 = 1;
  8001116:	4b08      	ldr	r3, [pc, #32]	; (8001138 <fsm_pedestrian+0x134>)
- 8001118:	2200      	movs	r2, #0
+ 8001118:	2201      	movs	r2, #1
  800111a:	601a      	str	r2, [r3, #0]
 			break;
  800111c:	e005      	b.n	800112a <fsm_pedestrian+0x126>

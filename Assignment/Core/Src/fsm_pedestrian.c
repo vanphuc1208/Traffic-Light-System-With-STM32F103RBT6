@@ -62,7 +62,7 @@ void fsm_pedestrian(void)
 				{
 					buzzer(buzzerValue);
 					setTimer(6, 5);
-					frequency1 = 0;
+					frequency1 = 1;
 				}
 				else
 					buzzer(0);
