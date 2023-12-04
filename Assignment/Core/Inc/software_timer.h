@@ -15,6 +15,8 @@ int Current_Timer_Counter(int timer);
 
 int isTimerUp(int timer);
 
+void setFlag(int timer);
+
 void setTimer(int timer, int duration);
 
 void timerRun(void);

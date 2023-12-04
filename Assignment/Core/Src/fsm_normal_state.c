@@ -173,8 +173,10 @@ void normalState(void)
 		displayGreen1();
 		displayRed2();
 
-		if(timeYellow < 5 && time1 == 5 - timeYellow)
+		if(timeYellow < 5 && time1 <= 5 - timeYellow && pedestrian_flag==Pedestrian_GREEN  && flag == 0) {
+			flag = 1;
 			setTimer(4, 1);
+		}
 
 		if(isTimerUp(1)==1)
 		{	// Update Time
@@ -199,7 +201,7 @@ void normalState(void)
 		}
 
 		if(timeYellow < 5 && time1 <= 5 - timeYellow)
-				buzzerValue = 512 / 32 * (5- timeYellow - time1);
+				buzzerValue = 512 * (5- timeYellow - time1);
 
 		if(Is_Button_Pressed(1))
 		{
@@ -227,8 +229,10 @@ void normalState(void)
 		displayYellow1();
 		displayRed2();
 
-		if (timeYellow >= 5 && time1 == 5)
+		if (timeYellow >= 5 && time1 == 5 && pedestrian_flag==Pedestrian_GREEN && flag == 0) {
+			flag = 1;
 			setTimer(4, 1);
+		}
 
 		if(isTimerUp(1) == 1)
 		{	// Update Time
@@ -257,10 +261,10 @@ void normalState(void)
 
 
 		if (timeYellow >= 5 && time1 <= 5)
-			buzzerValue = 512 / 32 * (5 - time1);
+			buzzerValue = 512 * (5 - time1);
 
 		if(timeYellow < 5)
-			buzzerValue += 256 / 32 * (5 - time1);
+			buzzerValue += 256 * (5 - time1);
 
 
 		if(Is_Button_Pressed(1))
@@ -281,6 +285,9 @@ void normalState(void)
 		if(Is_Button_Pressed(0))
 		{
 			pedestrian_flag = Pedestrian_GREEN;
+			if(time1<5) {
+				setTimer(4,1);
+			}
 			setTimer(3, (timeRed + timeGreen) * 100);
 		}
 		break;

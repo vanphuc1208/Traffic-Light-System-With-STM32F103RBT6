@@ -15,6 +15,12 @@ int isTimerUp(int timer)
 	return (timer_flag[timer] == 1);
 }
 
+void setFlag(int timer)
+{
+	timer_counter[timer] = 0;
+	timer_flag[timer] = 0;
+}
+
 void setTimer(int timer, int duration)
 {
 	timer_counter[timer] = duration;

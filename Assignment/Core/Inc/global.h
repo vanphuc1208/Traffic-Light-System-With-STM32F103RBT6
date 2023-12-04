@@ -54,6 +54,8 @@ extern int frequency1;
 
 extern int freq[10];
 
+extern flag;
+
 extern UART_HandleTypeDef huart2;
 
 #endif /* INC_GLOBAL_H_ */
