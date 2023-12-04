@@ -17,7 +17,6 @@ int isTimerUp(int timer)
 
 void setFlag(int timer)
 {
-	timer_counter[timer] = 0;
 	timer_flag[timer] = 0;
 }
 

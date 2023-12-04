@@ -6,6 +6,7 @@
  */
 
 #include "global.h"
+#include<math.h>
 
 void increase()
 {
@@ -18,39 +19,39 @@ void balance(int RED, int AMBER, int GREEN)
 {
 	if(RED > timeRed)
 	{
-		timeYellow = round(((float)(timeYellow * 1.0f) * (float)( (RED * 1.0f) / (timeRed * 1.0f) )));
-		timeGreen = round(((float)(timeGreen * 1.0f) * (float)( (RED * 1.0f) / (timeRed * 1.0f) )));
-		timeRed = RED;
+		timeYellow	= round( ( (float)(timeYellow * 1.0f) * (float)( (RED * 1.0f) / (timeRed * 1.0f) ) ) );
+		timeGreen	= round( ( (float)(timeGreen * 1.0f) * (float)( (RED * 1.0f) / (timeRed * 1.0f) ) ) );
+		timeRed		= RED;
 	}
 	else if(AMBER > timeYellow)
 	{
-		timeRed = round(((float)(timeRed * 1.0f) * (float)( (AMBER * 1.0f) / (timeYellow * 1.0f) )));
-		timeGreen = round(((float)(timeGreen * 1.0f) * (float)( (AMBER * 1.0f) / (timeYellow * 1.0f) )));
-		timeYellow = AMBER;
+		timeRed		= round( ( (float)(timeRed * 1.0f) * (float)( (AMBER * 1.0f) / (timeYellow * 1.0f) ) ) ) ;
+		timeGreen	= round( ( (float)(timeGreen * 1.0f) * (float)( (AMBER * 1.0f) / (timeYellow * 1.0f) ) ) );
+		timeYellow	= AMBER;
 	}
 	else if(GREEN > timeGreen)
 	{
-		timeRed = round(((float)(timeRed * 1.0f) * (float)( (GREEN * 1.0f) / (timeGreen * 1.0f) )));
-		timeYellow = round(((float)(timeYellow * 1.0f) * (float)( (GREEN * 1.0f) / (timeGreen * 1.0f) )));
-		timeGreen = GREEN;
+		timeRed		= round( ( (float)(timeRed * 1.0f) * (float)( (GREEN * 1.0f) / (timeGreen * 1.0f) ) ) );
+		timeYellow	= round( ( (float)(timeYellow * 1.0f) * (float)( (GREEN * 1.0f) / (timeGreen * 1.0f) ) ) );
+		timeGreen	= GREEN;
 	}
 	else if(RED < timeRed)
 	{
-		timeYellow = round((float)(RED * 1.0f) / (5 * 1.0f)) * (float)(2 * 1.0f);
-		timeGreen = round((float)(RED * 1.0f) / (5 * 1.0f)) * (float)(3 * 1.0f);
-		timeRed = RED;
+		timeYellow	= round( (float)(RED * 1.0f) / (5 * 1.0f) ) * (float)(2 * 1.0f);
+		timeGreen	= round( (float)(RED * 1.0f) / (5 * 1.0f) ) * (float)(3 * 1.0f);
+		timeRed		= RED;
 	}
 	else if(AMBER < timeYellow)
 	{
-		timeRed = round((float)(AMBER * 1.0f) / (2 * 1.0f)) * (float)(5 * 1.0f);
-		timeGreen = round((float)(AMBER * 1.0f) / (2 * 1.0f)) * (float)(3 * 1.0f);
-		timeYellow = AMBER;
+		timeRed		= round( (float)(AMBER * 1.0f) / (2 * 1.0f) ) * (float)(5 * 1.0f);
+		timeGreen	= round( (float)(AMBER * 1.0f) / (2 * 1.0f) ) * (float)(3 * 1.0f);
+		timeYellow	= AMBER;
 	}
 	else if(GREEN < timeGreen)
 	{
-		timeRed = round((float)(GREEN * 1.0f) / (3 * 1.0f)) * (float)(5 * 1.0f);
-		timeYellow = round((float)(GREEN * 1.0f) / (3 * 1.0f)) * (float)(2 * 1.0f);
-		timeGreen = GREEN;
+		timeRed		= round( (float)(GREEN * 1.0f) / (3 * 1.0f) ) * (float)(5 * 1.0f);
+		timeYellow	= round( (float)(GREEN * 1.0f) / (3 * 1.0f) ) * (float)(2 * 1.0f);
+		timeGreen	= GREEN;
 	}
 }
 
@@ -75,8 +76,8 @@ void normalState(void)
 
 		if(isTimerUp(1) == 1)
 		{	// Update Time
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED1 - LED_RED:   %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED2 - LED_GREEN: %d#\r\n\n\n",time2), 500);
 
 			time1--;
 			time2--;
@@ -123,8 +124,8 @@ void normalState(void)
 
 		if(isTimerUp(1) == 1)
 		{	// Update Time
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED1 - LED_RED:    %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED12 - LED_AMBER: %d#\r\n\n\n",time2), 500);
 
 			time1--;
 			time2--;
@@ -173,15 +174,16 @@ void normalState(void)
 		displayGreen1();
 		displayRed2();
 
-		if(timeYellow < 5 && time1 <= 5 - timeYellow && pedestrian_flag==Pedestrian_GREEN  && flag == 0) {
+		if(timeYellow < 5 && time1 <= 5 - timeYellow && flag == 0 && pedestrian_flag == Pedestrian_GREEN)
+		{
 			flag = 1;
 			setTimer(4, 1);
 		}
 
 		if(isTimerUp(1)==1)
 		{	// Update Time
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED1 - LED_GREEN: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED2 - LED_RED:   %d#\r\n\n\n",time2), 500);
 
 			time1--;
 			time2--;
@@ -229,15 +231,16 @@ void normalState(void)
 		displayYellow1();
 		displayRed2();
 
-		if (timeYellow >= 5 && time1 == 5 && pedestrian_flag==Pedestrian_GREEN && flag == 0) {
+		if (timeYellow >= 5 && time1 == 5 && flag == 0 && pedestrian_flag == Pedestrian_GREEN)
+		{
 			flag = 1;
 			setTimer(4, 1);
 		}
 
 		if(isTimerUp(1) == 1)
 		{	// Update Time
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED1 - LED_AMBER: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED2 - LED_RED:   %d#\r\n\n\n",time2), 500);
 
 			time1--;
 			time2--;
@@ -285,9 +288,9 @@ void normalState(void)
 		if(Is_Button_Pressed(0))
 		{
 			pedestrian_flag = Pedestrian_GREEN;
-			if(time1<5) {
-				setTimer(4,1);
-			}
+			if(time1 < 5)
+				setTimer(4, 1);
+
 			setTimer(3, (timeRed + timeGreen) * 100);
 		}
 		break;
@@ -338,8 +341,9 @@ void normalState(void)
 		if(isTimerUp(1) == 1)
 		{
 			setTimer(1, 100);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED1 - LED_RED_VALUE: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED2 - MODE_RED:      %d#\r\n\n\n",time2), 500);
 		}
 		break;
 
@@ -389,8 +393,9 @@ void normalState(void)
 		if(isTimerUp(1) == 1)
 		{
 			setTimer(1, 100);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED1 - LED_AMBER_VALUE: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED2 - MODE_AMBER:      %d#\r\n\n\n",time2), 500);
 		}
 		break;
 
@@ -438,8 +443,9 @@ void normalState(void)
 		if(isTimerUp(1) == 1)
 		{
 			setTimer(1, 100);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED1 - LED_GREEN_VALUE: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG_LED2 - MODE_GREEN:      %d#\r\n\n\n",time2), 500);
 		}
 		break;
 

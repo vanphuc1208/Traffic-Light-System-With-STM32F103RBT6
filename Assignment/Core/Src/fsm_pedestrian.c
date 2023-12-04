@@ -18,8 +18,6 @@ void fsm_pedestrian(void)
 			frequency1 = 0;
 			flag = 0;
 			setFlag(4);
-//			setFlag(5);
-//			setFlag(6);
 
 			clearPedestrian();
 			break;
@@ -31,8 +29,6 @@ void fsm_pedestrian(void)
 			frequency1 = 0;
 			flag = 0;
 			setFlag(4);
-//			setFlag(5);
-//			setFlag(6);
 
 			if(isTimerUp(3) == 1)
 				pedestrian_flag = Pedestrian_INIT;
@@ -48,7 +44,6 @@ void fsm_pedestrian(void)
 
 			if(isTimerUp(4) == 1)
 			{
-				HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\nfromtimerUp4 %d#\r\n",frequency), 500);
 				frequency1 = 1;
 				frequency += 1;
 				setTimer(4, 50);
