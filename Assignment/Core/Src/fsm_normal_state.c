@@ -18,38 +18,38 @@ void balance(int RED, int AMBER, int GREEN)
 {
 	if(RED > timeRed)
 	{
-		timeYellow = timeYellow * (RED / timeRed);
-		timeGreen = timeGreen * (RED / timeRed);
+		timeYellow = round(((float)(timeYellow * 1.0f) * (float)( (RED * 1.0f) / (timeRed * 1.0f) )));
+		timeGreen = round(((float)(timeGreen * 1.0f) * (float)( (RED * 1.0f) / (timeRed * 1.0f) )));
 		timeRed = RED;
 	}
 	else if(AMBER > timeYellow)
 	{
-		timeRed = timeRed * (AMBER / timeYellow);
-		timeGreen = timeGreen * (AMBER / timeYellow);
+		timeRed = round(((float)(timeRed * 1.0f) * (float)( (AMBER * 1.0f) / (timeYellow * 1.0f) )));
+		timeGreen = round(((float)(timeGreen * 1.0f) * (float)( (AMBER * 1.0f) / (timeYellow * 1.0f) )));
 		timeYellow = AMBER;
 	}
 	else if(GREEN > timeGreen)
 	{
-		timeRed = timeRed * (GREEN / timeGreen);
-		timeYellow = AMBER * (GREEN / timeGreen);
+		timeRed = round(((float)(timeRed * 1.0f) * (float)( (GREEN * 1.0f) / (timeGreen * 1.0f) )));
+		timeYellow = round(((float)(timeYellow * 1.0f) * (float)( (GREEN * 1.0f) / (timeGreen * 1.0f) )));
 		timeGreen = GREEN;
 	}
 	else if(RED < timeRed)
 	{
-		timeYellow = (RED / 5) * 2;
-		timeGreen = (RED / 5) * 3;
+		timeYellow = round((float)(RED * 1.0f) / (5 * 1.0f)) * (float)(2 * 1.0f);
+		timeGreen = round((float)(RED * 1.0f) / (5 * 1.0f)) * (float)(3 * 1.0f);
 		timeRed = RED;
 	}
 	else if(AMBER < timeYellow)
 	{
-		timeRed = (AMBER / 2) * 5;
-		timeGreen = (AMBER / 2) * 3;
+		timeRed = round((float)(AMBER * 1.0f) / (2 * 1.0f)) * (float)(5 * 1.0f);
+		timeGreen = round((float)(AMBER * 1.0f) / (2 * 1.0f)) * (float)(3 * 1.0f);
 		timeYellow = AMBER;
 	}
 	else if(GREEN < timeGreen)
 	{
-		timeRed = (GREEN / 3) * 5;
-		timeYellow = (GREEN / 3) * 2;
+		timeRed = round((float)(GREEN * 1.0f) / (3 * 1.0f)) * (float)(5 * 1.0f);
+		timeYellow = round((float)(GREEN * 1.0f) / (3 * 1.0f)) * (float)(2 * 1.0f);
 		timeGreen = GREEN;
 	}
 }
@@ -106,6 +106,7 @@ void normalState(void)
 			clearAllLed1();
 			clearAllLed2();
 
+			setTimer(1, 100);
 			setTimer(2, 25);
 			setTimer(7,500);
 		}
@@ -156,6 +157,7 @@ void normalState(void)
 			clearAllLed1();
 			clearAllLed2();
 
+			setTimer(1, 100);
 			setTimer(2, 25);
 			setTimer(7,500);
 		}
@@ -209,6 +211,7 @@ void normalState(void)
 			clearAllLed1();
 			clearAllLed2();
 
+			setTimer(1, 100);
 			setTimer(2, 25);
 			setTimer(7,500);
 		}
@@ -270,6 +273,7 @@ void normalState(void)
 			clearAllLed1();
 			clearAllLed2();
 
+			setTimer(1, 100);
 			setTimer(2, 25);
 			setTimer(7,500);
 		}
@@ -324,8 +328,12 @@ void normalState(void)
 			setTimer(7,500);
 		}
 
-		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+		if(isTimerUp(1) == 1)
+		{
+			setTimer(1, 100);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+		}
 		break;
 
 	case ManAmber:
@@ -371,8 +379,12 @@ void normalState(void)
 			setTimer(7,500);
 		}
 
-		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+		if(isTimerUp(1) == 1)
+		{
+			setTimer(1, 100);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+		}
 		break;
 
 	case ManGreen:
@@ -416,8 +428,12 @@ void normalState(void)
 			time2 = timeGreen;
 		}
 
-		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
-		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+		if(isTimerUp(1) == 1)
+		{
+			setTimer(1, 100);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG1: %d#\r\n",time1), 500);
+			HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "\r\n!7SEG2: %d#\r\n\n\n",time2), 500);
+		}
 		break;
 
 	default:
