@@ -2,7 +2,8 @@
  * fsm_normal_state.c
  *
  *  Created on: Oct 22, 2023
- *      Author: OS
+ *      Author: Le Van Phuc			- 2152241
+ *      		Nguyen Quang Thien	- 2152994
  */
 
 #include "global.h"

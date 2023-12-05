@@ -2,7 +2,8 @@
  * buzzer.c
  *
  *  Created on: Nov 28, 2023
- *      Author: OS
+ *      Author: Le Van Phuc			- 2152241
+ *      		Nguyen Quang Thien	- 2152994
  */
 
 #include "buzzer.h"

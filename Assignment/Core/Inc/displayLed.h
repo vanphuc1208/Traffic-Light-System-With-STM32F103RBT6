@@ -2,7 +2,8 @@
  * displayLed.h
  *
  *  Created on: Nov 27, 2023
- *      Author: OS
+ *      Author: Le Van Phuc			- 2152241
+ *      		Nguyen Quang Thien	- 2152994
  */
 #ifndef INC_DISPLAYLED_H_
 #define INC_DISPLAYLED_H_

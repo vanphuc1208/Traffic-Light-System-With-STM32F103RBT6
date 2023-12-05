@@ -1,2 +1,2 @@
-button.c:44:6:Button_Reading	16	static
-button.c:72:5:Is_Button_Pressed	16	static
+button.c:45:6:Button_Reading	16	static
+button.c:73:5:Is_Button_Pressed	16	static

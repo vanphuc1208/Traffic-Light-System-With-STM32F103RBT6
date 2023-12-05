@@ -2,7 +2,8 @@
  * button.c
  *
  *  Created on: Nov 27, 2023
- *      Author: OS
+ *      Author: Le Van Phuc			- 2152241
+ *      		Nguyen Quang Thien	- 2152994
  */
 
 #include "button.h"
