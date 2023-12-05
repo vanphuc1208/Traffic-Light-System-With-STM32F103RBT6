@@ -9,126 +9,109 @@
 #include "scheduler.h"
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct
-{
+typedef struct {
 	void ( * pTask)(void);
 	uint32_t Delay;
 	uint32_t Period;
 	uint8_t RunMe;
-	// uint32_t TaskID;
+	//uint32_t TaskID;
 } sTask;
 
-struct Node
-{
+struct Node{
 	sTask data;
 	struct Node* next;
 };
 
 
-struct Node* head = NULL;
+struct Node* head=NULL;
 
-void SCH_Init(void)
-{
-	head = NULL;
+
+void SCH_Init(void) {
+	head=NULL;
 }
 
-void AddNode(sTask NewTask)
-{
-	struct Node* NewNode = (struct Node*)malloc(sizeof(struct Node));
-	NewNode -> data.pTask = NewTask.pTask;
-	NewNode -> data.Delay = NewTask.Delay;
-	NewNode -> data.Period = NewTask.Period;
-	NewNode -> data.RunMe = NewTask.RunMe;
-	NewNode -> next = NULL;
-
-	// List is empty, just addNode
-	if(head == NULL)
-	{
-		head = NewNode;
+void addNode(sTask newTask) {
+	struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+	newNode->data.pTask = newTask.pTask;
+	newNode->data.Delay = newTask.Delay;
+	newNode->data.Period = newTask.Period;
+	newNode->data.RunMe = newTask.RunMe;
+	newNode->next = NULL;
+	//list is empty just addNode
+	if(head == NULL) {
+		head=newNode;
 		return;
 	}
-	struct Node* temp = head;
-
-	// If the list has A5 B3 C2 Adding D3  ->  D3 A2 B3 C2
-	if(NewNode -> data.Delay < temp -> data.Delay )
-	{
-		temp -> data.Delay -= NewNode -> data.Delay;
-		NewNode -> next = temp;
-		head = NewNode;
+	struct Node* tmp=head;
+	//if the list has A5 B3 C2  we add D3 -> D3 A2 B3 C2
+	if(newNode->data.Delay < tmp->data.Delay ) {
+		tmp->data.Delay-= newNode->data.Delay;
+		newNode->next=tmp;
+		head=newNode;
 		return;
 	}
 
-	// If the list has A5 B3 C2 Adding D9  ->  A5 B3 D1 C1
-	while(temp -> next != NULL)
-	{
-		NewNode -> data.Delay -= temp -> data.Delay;
-		if(NewNode -> data.Delay <= temp -> next -> data.Delay)
+	// if the list has A5 B3 C2 we add D9 -> A5 B3 D1 C1
+	while(tmp->next !=NULL) {
+		newNode->data.Delay -= tmp->data.Delay;
+		if(newNode->data.Delay <= tmp->next->data.Delay) {
 			break;
-
-		temp = temp -> next;
+		}
+		tmp=tmp->next;
 	}
-
-	// temp current in B3 and D become D1
-	if(temp -> next == NULL)
-	{
-		NewNode -> data.Delay -= temp -> data.Delay;
-		temp -> next = NewNode;
+	// tmp dang o B3 va D tro thanh D1
+	if(tmp->next ==NULL) {
+		newNode->data.Delay-=tmp->data.Delay;
+		tmp->next=newNode;
 	}
-	else
-	{
-		temp -> next -> data.Delay -= NewNode -> data.Delay; // convert C2 to C1
-		NewNode -> next = temp -> next;
-		temp -> next = NewNode;
+	else {
+		tmp->next->data.Delay-= newNode->data.Delay; // chuyen C2 thanh C1
+		newNode->next=tmp->next;
+		tmp->next=newNode;
 	}
 }
 
-void DeleteBegin()
-{
-	struct Node* temp = head;
-	if(temp == NULL) return;
-	head = head -> next;
-	free(temp);
+void deleteBegin() {
+	struct Node* tmp=head;
+	if(tmp==NULL) return;
+	head=head->next;
+	free(tmp);
 }
 
-void SCH_Add_Task(void (*p_function)(), uint32_t DELAY, uint32_t PERIOD)
-{
-	sTask NewTask;
-	NewTask.pTask = p_function;
-	NewTask.Delay = DELAY;
-	NewTask.Period = PERIOD;
-
-	if(NewTask.Delay == 0)
-		NewTask.RunMe = 1;
-	else
-		NewTask.RunMe = 0;
-
-	AddNode(NewTask);
-}
-
-void SCH_Update(void)
-{
-	if(head == NULL) return;
-
-	if(head -> data.Delay <= 0)
-		head -> data.RunMe = 1;
-	else
-		head -> data.Delay--;
-}
-
-void SCH_Dispatch_Tasks(void)
-{
-	if(head == NULL) return;
-
-	if(head -> data.RunMe > 0)
-	{
-		(*head -> data.pTask)();
-		sTask NewTask = head -> data;
-		DeleteBegin();
-
-		if(NewTask.Period != 0)
-			SCH_Add_Task(NewTask.pTask, NewTask.Period, NewTask.Period);
+void SCH_Add_Task(void (*p_function)(), uint32_t DELAY, uint32_t PERIOD){
+	sTask newTask;
+	newTask.pTask=p_function;
+	newTask.Delay=DELAY;
+	newTask.Period=PERIOD;
+	if(newTask.Delay==0) {
+		newTask.RunMe=1;
 	}
+	else {
+		newTask.RunMe=0;
+	}
+	addNode(newTask);
+}
 
-	// Enter low-power mode (Sleep mode). The MCU will wake up on the next interrupt
-	HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+void SCH_Update(void) {
+	if(head==NULL) return;
+	if(head->data.Delay <=0) {
+		head->data.RunMe=1;
+	}
+	else {
+		head->data.Delay--;
+		if(head->data.Delay <=0) head->data.RunMe=1;
+	}
+}
+
+void SCH_Dispatch_Tasks(void) {
+	if(head==NULL) return;
+	if(head->data.RunMe > 0) {
+		(*head->data.pTask)();
+		sTask newTask=head->data;
+		deleteBegin();
+		if(newTask.Period !=0) {
+			SCH_Add_Task(newTask.pTask, newTask.Period, newTask.Period);
+		}
+	}
+	 HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 }
