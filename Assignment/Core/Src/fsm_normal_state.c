@@ -289,7 +289,7 @@ void normalState(void)
 		if(Is_Button_Pressed(0))
 		{
 			pedestrian_flag = Pedestrian_GREEN;
-			if(time1 < 5 && flag == 1)
+			if(time1 < 5)
 				setTimer(4, 1);
 
 			setTimer(3, (timeRed + timeGreen) * 100);

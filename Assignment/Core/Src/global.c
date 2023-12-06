@@ -26,6 +26,6 @@ int frequency = -1; // Array delay
 
 int frequency1 = 0; // Off duty-cycle
 
-int freq[10] = {30, 25, 20, 15, 10, 5, 4, 3, 2, 1};
+int freq[11] = {30, 25, 20, 15, 10, 6, 5, 4, 3, 2, 1};
 
 int flag = 0;

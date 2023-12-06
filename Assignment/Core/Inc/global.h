@@ -53,7 +53,7 @@ extern int frequency;
 
 extern int frequency1;
 
-extern int freq[10];
+extern int freq[11];
 
 extern flag;
 
