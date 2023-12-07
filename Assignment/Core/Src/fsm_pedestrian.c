@@ -7,7 +7,7 @@
  */
 
 #include "global.h"
-char str[50];
+
 void fsm_pedestrian(void)
 {
 	switch(pedestrian_flag)
