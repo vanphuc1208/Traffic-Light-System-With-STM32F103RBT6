@@ -63,9 +63,9 @@ static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN 0 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	timerRun();
+	//timerRun();
 	SCH_Update();
-	Button_Reading();
+	//Button_Reading();
 }
 /* USER CODE END 0 */
 
@@ -109,8 +109,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-// SCH_Add_Task(timerRun, 0, 1);
+ SCH_Add_Task(Button_Reading, 0, 1);
+ SCH_Add_Task(timerRun, 0, 1);
  SCH_Add_Task(normalState, 1, 1);
  SCH_Add_Task(fsm_pedestrian, 1, 1);
 
