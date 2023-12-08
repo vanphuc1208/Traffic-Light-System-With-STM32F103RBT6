@@ -37,8 +37,8 @@ static GPIO_PinState debounceButtonBuffer1[N0_OF_BUTTONS];
 static GPIO_PinState debounceButtonBuffer2[N0_OF_BUTTONS];
 static GPIO_PinState debounceButtonBuffer3[N0_OF_BUTTONS];
 
-// Defining  a flag for a button pressed more than 1 second.
-// Defining  counter for automatically increasing the value
+// Defining a flag for a button pressed more than 1 second.
+// Defining counter for automatically increasing the value
 // After the button is pressed more than 1 second.
 
 int buttonFlag[N0_OF_BUTTONS] = {0};
