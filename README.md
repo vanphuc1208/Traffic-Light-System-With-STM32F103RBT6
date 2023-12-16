@@ -1,6 +1,6 @@
 ___
 ### General Information:
-___
+
 - This project simulates a two-way traffic signal system using the STM32F103RB (Clock is 64MHz), which has the following key features:
 
     - Automatic mode: The system operates as normal. Green, yellow, and red are the light colors.
