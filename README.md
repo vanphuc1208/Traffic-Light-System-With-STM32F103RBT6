@@ -7,8 +7,8 @@
     - Tuning mode: This option allows you to change the duration of the light timing.
     - Pedestrian scramble: Upon pressing the pedestrian's button, the light turns on and functions in opposition to the vehicle's light.
 - Components' usage:
+    - Two-way traffic light LEDs.
+    - 4 buttons for setting modes.
     - UART Communication to control the system from a host computer.
     - One buzzer warning the time is running out when the pedestrian LED is turned ON.
-    - 4 buttons for setting modes.
-    - Two-way traffic light LEDs.
 
