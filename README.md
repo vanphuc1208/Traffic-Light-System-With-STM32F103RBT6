@@ -6,7 +6,7 @@
     - Manual mode: This option allows you to change the light colors by pressing a button.
     - Tuning mode: This option allows you to change the duration of the light timing.
     - Pedestrian scramble: Upon pressing the pedestrian's button, the light turns on and functions in opposition to the vehicle's light.
-- Implementing:
+- Implementing 4 buttons:
     - Pedestrian Button: Turn on the pedestrian light.
     - Button 0: Switch between manual and automatic mode.
     - Button 1: Increase the value of time.
