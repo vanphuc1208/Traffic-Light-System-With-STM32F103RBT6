@@ -1,6 +1,6 @@
 ## General Information:
-- Major components: Custom board with STM32F103RBT6 MCU (Clock is 64MHz).
-- Supporting communication protocol: UART.
+- Major components: Custom board with STM32F103RBT6 MCU (Clock is 64MHz)
+- Supporting communication protocol: UART
 - Purpose: The project simulates a two-way traffic signal system following key features:
     - Automatic mode: The system operates as normal. Green, yellow, and red are the light colors.
     - Manual mode: This option allows you to change the light colors by pressing a button.
