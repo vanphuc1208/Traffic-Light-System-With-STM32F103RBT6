@@ -17,6 +17,6 @@
     - UART Communication to control the system from a host computer.
     - One buzzer warning the time is running out when the pedestrian LED is turned ON.
 - Ports connecting:
-- 
+
 ![connect](https://github.com/vanphuc1208/MCUAssignment/assets/144821367/c931a758-0537-4fa5-bef3-c648de0e1953)
 
