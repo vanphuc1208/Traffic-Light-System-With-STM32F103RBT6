@@ -9,6 +9,11 @@
 - Components' usage:
     - Two-way traffic light LEDs.
     - 4 buttons for setting modes.
+      • Pedestrian Button: Turn on the pedestrian light.
+      • Button 0: Switch between manual and automatic mode.
+      • Button 1: Increase the value of time.
+      • Button 2: Set the current value to be the time of a corresponding light color
+    - UART Communication to control the system from a host computer.
     - UART Communication to control the system from a host computer.
     - One buzzer warning the time is running out when the pedestrian LED is turned ON.
 - Ports connecting:
