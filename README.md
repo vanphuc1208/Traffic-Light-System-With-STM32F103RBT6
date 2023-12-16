@@ -1,4 +1,4 @@
-### General Information:
+## General Information:
 ___
 - This project simulates a two-way traffic signal system using the STM32F103RB (Clock is 64MHz), which has the following key features:
 
