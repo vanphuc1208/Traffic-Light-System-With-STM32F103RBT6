@@ -14,7 +14,7 @@
 - Components' usage:
     - Two-way traffic light LEDs.
     - 4 buttons for setting modes.
-    - UART Communication to control the system from a host computer.
+    - UART communication to display information to the terminal.
     - One buzzer warning the time is running out when the pedestrian LED is turned ON.
 - Ports connecting:
 
